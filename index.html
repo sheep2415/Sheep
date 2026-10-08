@@ -16,10 +16,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            sidebar: '#E0F2FE', // 와이어프레임 연파랑
+                            sidebar: '#E0F2FE', // 연파랑 (사이드바)
                             sidebarHeader: '#0284C7',
-                            mainBg: '#FEF9C3',    // 와이어프레임 연노랑
-                            inputBg: '#E5E7EB',   // 와이어프레임 회색 입력창
+                            mainBg: '#FEF9C3',    // 연노랑 (메인 학습 영역)
+                            inputBg: '#E5E7EB',   // 회색 입력바
                             cardBg: '#FFFFFF',
                             accent: '#0284C7',
                         }
@@ -32,7 +32,7 @@
         }
     </script>
     <style>
-        /* Custom Custom Scrollbar & Animations */
+        /* Custom Scrollbar & Animations */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -60,7 +60,7 @@
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 h-screen overflow-hidden flex flex-col md:flex-row">
 
-    <!-- [왼쪽 사이드바 영역 - 와이어프레임 연한 파란색 반영] -->
+    <!-- [왼쪽 사이드바 영역 - 와이어프레임 연한 파란색] -->
     <aside id="sidebar" class="w-full md:w-80 lg:w-96 bg-sky-100/90 border-r border-sky-200 flex flex-col h-full z-20 transition-all duration-300 shadow-md">
         <!-- 사이드바 헤더 -->
         <div class="p-5 border-b border-sky-200 flex items-center justify-between bg-sky-200/50">
@@ -70,7 +70,7 @@
                 </div>
                 <div>
                     <h1 class="font-bold text-lg text-sky-900 leading-tight">AI 공부 문제 풀이</h1>
-                    <p class="text-xs text-sky-700">맞춤형 대화식 AI 학습 튜터</p>
+                    <p class="text-xs text-sky-700">스마트 AI 대화형 튜터</p>
                 </div>
             </div>
             <!-- 모바일 전용 닫기 버튼 -->
@@ -79,42 +79,55 @@
             </button>
         </div>
 
-        <!-- 빠른 과목 선택 섹션 -->
+        <!-- 과목 선택 및 설정 영역 -->
         <div class="p-4 overflow-y-auto flex-1 space-y-6">
+            
+            <!-- API 키 설정 상태 -->
+            <div class="bg-white/80 backdrop-blur-sm p-3 rounded-xl border border-sky-200 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-key text-amber-500 text-sm"></i>
+                    <span class="text-xs font-semibold text-sky-900" id="apiKeyStatusText">API 키 상태: 기본 동작 중</span>
+                </div>
+                <button onclick="openApiKeyModal()" class="text-xs px-2.5 py-1 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition">
+                    설정
+                </button>
+            </div>
+
+            <!-- 빠른 과목 선택 -->
             <div>
                 <h2 class="text-xs font-bold text-sky-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-bolt text-amber-500"></i> 추천 빠른 선택
+                    <i class="fa-solid fa-bolt text-amber-500"></i> 추천 빠른 단원 선택
                 </h2>
                 <div class="grid grid-cols-1 gap-2">
-                    <button onclick="quickSelect('수학', '이차방정식')" class="quick-btn text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
+                    <button onclick="quickSelect('수학', '이차방정식')" class="text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
                         <span class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                             수학 - 이차방정식
                         </span>
                         <i class="fa-solid fa-chevron-right text-xs text-sky-400 group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <button onclick="quickSelect('영어', '관계대명사')" class="quick-btn text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
+                    <button onclick="quickSelect('영어', '관계대명사')" class="text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
                         <span class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                             영어 - 관계대명사
                         </span>
                         <i class="fa-solid fa-chevron-right text-xs text-sky-400 group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <button onclick="quickSelect('한국사', '조선 세종대왕 업적')" class="quick-btn text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
+                    <button onclick="quickSelect('한국사', '조선 세종대왕 업적')" class="text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
                         <span class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                             한국사 - 조선 세종
                         </span>
                         <i class="fa-solid fa-chevron-right text-xs text-sky-400 group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <button onclick="quickSelect('과학', '물리학 역학 기초')" class="quick-btn text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
+                    <button onclick="quickSelect('과학', '물리학 역학 기초')" class="text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
                         <span class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-purple-500"></span>
                             과학 - 물리 기초
                         </span>
                         <i class="fa-solid fa-chevron-right text-xs text-sky-400 group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <button onclick="quickSelect('프로그래밍', 'Python 반복문 및 조건문')" class="quick-btn text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
+                    <button onclick="quickSelect('프로그래밍', 'Python 반복문 및 조건문')" class="text-left p-3 rounded-xl bg-white/80 hover:bg-white border border-sky-200 hover:border-sky-400 text-sky-900 text-sm font-medium transition flex items-center justify-between group shadow-sm">
                         <span class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                             프로그래밍 - Python
@@ -124,10 +137,10 @@
                 </div>
             </div>
 
-            <!-- 학습 난이도 및 옵션 모듈 -->
+            <!-- 난이도 및 문제 옵션 -->
             <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-4 border border-sky-200 space-y-3">
                 <h3 class="text-xs font-bold text-sky-800 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-sky-600"></i> 문제 난이도 선택
+                    <i class="fa-solid fa-sliders text-sky-600"></i> 난이도 및 출제 방식
                 </h3>
                 <div class="grid grid-cols-3 gap-1 bg-sky-200/60 p-1 rounded-xl text-xs font-semibold">
                     <button id="diff-easy" onclick="setDifficulty('쉬움')" class="diff-btn py-1.5 rounded-lg transition bg-white text-sky-900 shadow-sm">쉬움</button>
@@ -145,19 +158,19 @@
                 </div>
             </div>
 
-            <!-- 이전 학습 현황 통계 모듈 -->
+            <!-- 학습 통계 카드 -->
             <div class="bg-sky-600 text-white rounded-2xl p-4 shadow-md space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold opacity-90">오늘의 학습 기록</span>
+                    <span class="text-xs font-semibold opacity-90">오늘의 학습 현황</span>
                     <i class="fa-solid fa-chart-pie text-sky-200"></i>
                 </div>
                 <div class="grid grid-cols-3 gap-2 text-center pt-1">
                     <div class="bg-sky-700/60 p-2 rounded-xl">
-                        <p class="text-xs text-sky-200">총 문제</p>
+                        <p class="text-xs text-sky-200">풀이 문제</p>
                         <p id="stat-total" class="text-lg font-bold">0</p>
                     </div>
                     <div class="bg-sky-700/60 p-2 rounded-xl">
-                        <p class="text-xs text-emerald-300">정답</p>
+                        <p class="text-xs text-emerald-300">정답 수</p>
                         <p id="stat-correct" class="text-lg font-bold text-emerald-300">0</p>
                     </div>
                     <div class="bg-sky-700/60 p-2 rounded-xl">
@@ -166,81 +179,114 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- 사이드바 푸터 (초기화) -->
+        <!-- 사이드바 푸터 -->
         <div class="p-4 border-t border-sky-200 bg-sky-200/30">
-            <button onclick="clearChatHistory()" class="w-full py-2 px-3 rounded-xl border border-sky-300 bg-white/60 hover:bg-white text-sky-800 text-xs font-medium transition flex items-center justify-center gap-2">
+            <button onclick="clearChatHistory()" class="w-full py-2 px-3 rounded-xl border border-sky-300 bg-white/70 hover:bg-white text-sky-800 text-xs font-medium transition flex items-center justify-center gap-2">
                 <i class="fa-solid fa-rotate-right"></i>
-                대화 내용 초기화
+                대화 및 첨부파일 초기화
             </button>
         </div>
     </aside>
 
-    <!-- [오른쪽 메인 영역 - 와이어프레임 연한 노란색 배경 반영] -->
+    <!-- [오른쪽 메인 학습 영역 - 연한 노란색 배경] -->
     <main class="flex-1 flex flex-col h-full bg-[#FEF9C3] relative">
         
-        <!-- 메인 상단 헤더 (모바일 토글 및 상태) -->
+        <!-- 상단 헤더 -->
         <header class="p-4 bg-amber-100/80 border-b border-amber-200 flex items-center justify-between shadow-sm">
             <div class="flex items-center space-x-3">
                 <button id="openSidebarBtn" class="md:hidden text-amber-900 hover:text-amber-950 p-2 rounded-lg bg-amber-200/60">
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
                 <div>
-                    <h2 id="currentSubjectTitle" class="font-bold text-amber-950 text-base md:text-lg flex items-center gap-2">
-                        <i class="fa-solid fa-book-open text-amber-600"></i> AI 학습 학습장
+                    <h2 class="font-bold text-amber-950 text-base md:text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-amber-600"></i> AI 문제 풀이 메인 대화
                     </h2>
-                    <p class="text-xs text-amber-700">원하는 과목과 단원을 말하면 맞춤 문제를 즉시 생성해 드립니다.</p>
+                    <p class="text-xs text-amber-700">이미지, 참고 링크, 질문을 함께 전송해 시각적 문제를 풀어보세요.</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-200 text-amber-800 border border-amber-300">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-200 text-amber-900 border border-amber-300">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
-                    AI 준비됨
+                    멀티모달 AI 활성화
                 </span>
             </div>
         </header>
 
-        <!-- 메인 상단 대화 및 문제 제시 영역 (스크롤 가능) -->
+        <!-- 대화 컨테이너 -->
         <div id="chatContainer" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-5">
             
-            <!-- 환영 메시지 / 안내 카드 -->
+            <!-- 안내 카드 -->
             <div id="welcomeCard" class="bg-white/90 rounded-2xl p-6 shadow-sm border border-amber-200 max-w-2xl mx-auto my-4 text-center space-y-4">
                 <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-inner">
-                    <i class="fa-solid fa-brain"></i>
+                    <i class="fa-solid fa-images text-sky-600"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800">어떤 과목을 공부하고 싶으신가요?</h3>
+                    <h3 class="text-lg font-bold text-gray-800">사진이나 웹링크를 첨부하여 질문해보세요!</h3>
                     <p class="text-sm text-gray-600 mt-1">
-                        왼쪽 <b>빠른 선택 버튼</b>을 누르시거나, 아래 입력창에<br>
-                        <span class="text-sky-600 font-semibold">"수학 삼각함수 문제 내줘"</span> 또는 <span class="text-sky-600 font-semibold">"영어 관계대명사 1문제 부탁해"</span> 처럼 자유롭게 입력해보세요!
+                        교재나 문제지 **사진 파일을 업로드**하거나 **참고 링크**를 입력하면,<br>
+                        AI가 이미지를 분석해 정답 채점, 맞춤 해설, 유사 문제를 제공합니다.
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-2 justify-center pt-2">
-                    <span class="px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs border border-sky-100">✨ 자동 맞춤 문제 생성</span>
-                    <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs border border-amber-100">💡 단계별 힌트 제공</span>
-                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs border border-emerald-100">📝 상세 정답 채점 & 해설</span>
+                    <span class="px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs border border-sky-100">📷 교재 문제 사진 인식</span>
+                    <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs border border-amber-100">🔗 학습 자료 링크 분석</span>
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs border border-emerald-100">💡 즉시 채점 및 상세 해설</span>
                 </div>
             </div>
 
-            <!-- 대화 메시지들이 여기에 동적으로 추가됩니다 -->
         </div>
 
-        <!-- [오른쪽 하단 입력바 영역 - 와이어프레임 회색 테두리/배경 + 원형 전송 버튼 반영] -->
-        <div class="p-4 bg-amber-100/60 border-t border-amber-200/80">
-            <div class="max-w-4xl mx-auto">
+        <!-- [하단 입력바 - 회색 배경 + 이미지/링크 첨부 및 원형 전송 버튼] -->
+        <div class="p-3 md:p-4 bg-amber-100/60 border-t border-amber-200/80">
+            <div class="max-w-4xl mx-auto space-y-2">
+
+                <!-- 첨부파일 미리보기 영역 (동적 추가) -->
+                <div id="attachmentPreviewContainer" class="hidden flex flex-wrap gap-2 p-2 bg-white/80 rounded-xl border border-gray-300 shadow-inner max-h-28 overflow-y-auto">
+                    <!-- 썸네일 카드들이 이 곳에 삽입됨 -->
+                </div>
+
+                <!-- 입력 폼 -->
                 <form id="chatForm" onsubmit="handleFormSubmit(event)" class="relative flex items-center bg-gray-200 rounded-full p-1.5 shadow-md border-2 border-gray-300 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-200 transition-all">
                     
+                    <!-- 첨부 버튼 모음 (좌측) -->
+                    <div class="flex items-center pl-2 pr-1 space-x-1 border-r border-gray-300 mr-1">
+                        <!-- 이미지 업로드 버튼 -->
+                        <button 
+                            type="button" 
+                            onclick="triggerImageUpload()" 
+                            class="p-2 text-gray-600 hover:text-sky-600 hover:bg-gray-300/60 rounded-full transition" 
+                            title="사진/이미지 첨부"
+                        >
+                            <i class="fa-solid fa-camera text-base"></i>
+                        </button>
+                        <!-- 숨겨진 File Input -->
+                        <input type="file" id="imageFileInput" accept="image/*" multiple class="hidden" onchange="handleImageFileSelect(event)">
+
+                        <!-- 링크 첨부 버튼 -->
+                        <button 
+                            type="button" 
+                            onclick="openLinkModal()" 
+                            class="p-2 text-gray-600 hover:text-amber-600 hover:bg-gray-300/60 rounded-full transition" 
+                            title="참고 링크 추가"
+                        >
+                            <i class="fa-solid fa-link text-base"></i>
+                        </button>
+                    </div>
+
+                    <!-- 텍스트 입력창 -->
                     <input 
                         type="text" 
                         id="userInput" 
-                        placeholder="풀고 싶은 과목/단원을 말하거나 정답을 입력하세요... (예: 수학 이차방정식, 정답은 3번)" 
-                        class="w-full bg-transparent pl-5 pr-14 py-3 text-sm text-gray-800 placeholder-gray-500 focus:outline-none"
+                        placeholder="풀고 싶은 과목/단원을 적거나, 사진을 올리고 '이 문제 풀어줘' 라고 해보세요..." 
+                        class="w-full bg-transparent pl-2 pr-14 py-3 text-sm text-gray-800 placeholder-gray-500 focus:outline-none"
                         autocomplete="off"
                     />
 
-                    <!-- 원형 액션 / 전송 버튼 (와이어프레임 원형 버튼 디자인) -->
+                    <!-- 원형 전송 버튼 -->
                     <button 
                         type="submit" 
                         id="sendBtn"
@@ -250,44 +296,250 @@
                         <i class="fa-solid fa-paper-plane text-base"></i>
                     </button>
                 </form>
-                <div class="flex items-center justify-between text-[11px] text-amber-800/80 mt-2 px-3">
-                    <span>💡 팁: '힌트 알려줘'라고 입력하면 AI가 풀이 힌트를 드립니다.</span>
-                    <span class="hidden sm:inline">Google Gemini API powered</span>
+
+                <div class="flex items-center justify-between text-[11px] text-amber-900/80 px-3">
+                    <span>💡 팁: 사진을 여러 장 첨부해 함께 풀 수도 있습니다.</span>
+                    <span id="attachmentCountStatus" class="font-semibold text-sky-800">첨부 0개</span>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <script>
-        // 글로벌 상태 관리
-        let currentDifficulty = '쉬움';
-        let conversationHistory = []; // Gemini 대화 기록
-        let stats = { total: 0, correct: 0 };
-        let activeQuestion = null; // 현재 진행 중인 문제 정보 (있을 경우)
+    <!-- [링크 추가 모달] -->
+    <div id="linkModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-link text-amber-500"></i> 참고 링크 URL 추가
+                </h3>
+                <button onclick="closeLinkModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1">웹페이지 URL 주소</label>
+                <input 
+                    type="url" 
+                    id="linkModalInput" 
+                    placeholder="https://example.com/study-material" 
+                    class="w-full text-sm p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none"
+                >
+            </div>
+            <div class="flex justify-end space-x-2 pt-2">
+                <button onclick="closeLinkModal()" class="px-4 py-2 rounded-xl text-xs font-medium bg-gray-100 hover:bg-gray-200 text-gray-700">취소</button>
+                <button onclick="addLinkAttachmentFromModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white">추가하기</button>
+            </div>
+        </div>
+    </div>
 
-        // 로드 시 초기화
+    <!-- [API Key 설정 모달 (깃허브 호스팅 대응)] -->
+    <div id="apiKeyModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-key text-amber-500"></i> Google Gemini API 키 설정
+                </h3>
+                <button onclick="closeApiKeyModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <p class="text-xs text-gray-600 leading-relaxed">
+                깃허브 페이지 호스팅 환경 등 백엔드 없는 환경에서 AI 기능을 사용하려면 발급받으신 Gemini API 키를 입력하세요. 입력된 키는 브라우저 내부(`localStorage`)에만 안전하게 저장됩니다.
+            </p>
+            <div>
+                <input 
+                    type="password" 
+                    id="apiKeyInput" 
+                    placeholder="AIzaSy..." 
+                    class="w-full text-sm p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none"
+                >
+            </div>
+            <div class="flex items-center justify-between pt-2">
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-xs text-sky-600 hover:underline flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> 무료 API 키 발급받기
+                </a>
+                <div class="flex gap-2">
+                    <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white">저장하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 애플리케이션 상태
+        let currentDifficulty = '쉬움';
+        let conversationHistory = []; // Gemini 대화 흐름
+        let stats = { total: 0, correct: 0 };
+        let pendingAttachments = []; // 현재 대화 전송을 위해 준비된 첨부목록 [{id, type:'image'|'link', mimeType, base64Data, previewUrl, url, name}]
+
         window.addEventListener('DOMContentLoaded', () => {
             loadStats();
             setupEventListeners();
+            updateApiKeyStatusUI();
         });
 
         function setupEventListeners() {
-            // 모바일 사이드바 토글
             const sidebar = document.getElementById('sidebar');
             const openSidebarBtn = document.getElementById('openSidebarBtn');
             const closeSidebarBtn = document.getElementById('closeSidebarBtn');
 
-            openSidebarBtn?.addEventListener('click', () => {
-                sidebar.classList.remove('-translate-x-full');
+            openSidebarBtn?.addEventListener('click', () => sidebar.classList.remove('-translate-x-full'));
+            closeSidebarBtn?.addEventListener('click', () => sidebar.classList.add('-translate-x-full'));
+        }
+
+        // --- API 키 관련 로직 ---
+        function openApiKeyModal() {
+            const modal = document.getElementById('apiKeyModal');
+            const input = document.getElementById('apiKeyInput');
+            input.value = localStorage.getItem('gemini_custom_api_key') || '';
+            modal.classList.remove('hidden');
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('gemini_custom_api_key', key);
+            } else {
+                localStorage.removeItem('gemini_custom_api_key');
+            }
+            closeApiKeyModal();
+            updateApiKeyStatusUI();
+        }
+
+        function updateApiKeyStatusUI() {
+            const customKey = localStorage.getItem('gemini_custom_api_key');
+            const statusText = document.getElementById('apiKeyStatusText');
+            if (customKey) {
+                statusText.innerText = "API 키: 개인 키 적용 중";
+                statusText.className = "text-xs font-semibold text-emerald-700";
+            } else {
+                statusText.innerText = "API 키: 기본 키 적용 중";
+                statusText.className = "text-xs font-semibold text-sky-900";
+            }
+        }
+
+        function getActiveApiKey() {
+            return localStorage.getItem('gemini_custom_api_key') || "";
+        }
+
+        // --- 첨부파일 (이미지 & 링크) 로직 ---
+        function triggerImageUpload() {
+            document.getElementById('imageFileInput').click();
+        }
+
+        function handleImageFileSelect(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const dataUrl = e.target.result;
+                    const mimeType = file.type || 'image/png';
+                    const base64Data = dataUrl.split(',')[1];
+
+                    pendingAttachments.push({
+                        id: 'att-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7),
+                        type: 'image',
+                        name: file.name,
+                        mimeType: mimeType,
+                        base64Data: base64Data,
+                        previewUrl: dataUrl
+                    });
+
+                    renderAttachmentPreviews();
+                };
+                reader.readAsDataURL(file);
             });
 
-            closeSidebarBtn?.addEventListener('click', () => {
-                sidebar.classList.add('-translate-x-full');
+            // input 초기화
+            event.target.value = '';
+        }
+
+        function openLinkModal() {
+            document.getElementById('linkModalInput').value = '';
+            document.getElementById('linkModal').classList.remove('hidden');
+        }
+
+        function closeLinkModal() {
+            document.getElementById('linkModal').classList.add('hidden');
+        }
+
+        function addLinkAttachmentFromModal() {
+            const input = document.getElementById('linkModalInput');
+            let url = input.value.trim();
+            if (!url) return;
+
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+
+            pendingAttachments.push({
+                id: 'att-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7),
+                type: 'link',
+                url: url
+            });
+
+            closeLinkModal();
+            renderAttachmentPreviews();
+        }
+
+        function removeAttachment(id) {
+            pendingAttachments = pendingAttachments.filter(item => item.id !== id);
+            renderAttachmentPreviews();
+        }
+
+        function renderAttachmentPreviews() {
+            const container = document.getElementById('attachmentPreviewContainer');
+            const countStatus = document.getElementById('attachmentCountStatus');
+
+            if (pendingAttachments.length === 0) {
+                container.classList.add('hidden');
+                container.innerHTML = '';
+                countStatus.innerText = '첨부 0개';
+                return;
+            }
+
+            container.classList.remove('hidden');
+            container.innerHTML = '';
+            countStatus.innerText = `첨부 ${pendingAttachments.length}개`;
+
+            pendingAttachments.forEach(att => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "relative group flex items-center bg-white border border-sky-200 rounded-xl overflow-hidden p-1 shadow-sm";
+
+                if (att.type === 'image') {
+                    itemDiv.innerHTML = `
+                        <img src="${att.previewUrl}" class="w-12 h-12 object-cover rounded-lg" alt="preview">
+                        <span class="text-[11px] font-medium text-gray-700 px-2 max-w-[100px] truncate">${escapeHTML(att.name)}</span>
+                        <button onclick="removeAttachment('${att.id}')" class="p-1 hover:bg-rose-100 text-rose-500 rounded-full transition ml-1">
+                            <i class="fa-solid fa-circle-xmark text-sm"></i>
+                        </button>
+                    `;
+                } else if (att.type === 'link') {
+                    itemDiv.innerHTML = `
+                        <div class="w-8 h-8 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <span class="text-[11px] font-medium text-sky-800 px-2 max-w-[140px] truncate">${escapeHTML(att.url)}</span>
+                        <button onclick="removeAttachment('${att.id}')" class="p-1 hover:bg-rose-100 text-rose-500 rounded-full transition ml-1">
+                            <i class="fa-solid fa-circle-xmark text-sm"></i>
+                        </button>
+                    `;
+                }
+
+                container.appendChild(itemDiv);
             });
         }
 
-        // 난이도 설정
+        // 난이도 변경
         function setDifficulty(diff) {
             currentDifficulty = diff;
             document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -301,12 +553,11 @@
             }
         }
 
-        // 빠른 과목 선택
+        // 빠른 단원 선택
         function quickSelect(subject, topic) {
             const typeSelect = document.getElementById('questionTypeSelect').value;
             const prompt = `${subject} 과목의 '${topic}' 단원에 대한 ${currentDifficulty} 난이도 (${typeSelect}) 문제 1개를 내주세요.`;
             
-            // 모바일 화면일 경우 사이드바 닫기
             if (window.innerWidth < 768) {
                 document.getElementById('sidebar').classList.add('-translate-x-full');
             }
@@ -314,62 +565,89 @@
             sendUserMessage(prompt);
         }
 
-        // 폼 제출 처리
+        // Form Submit
         function handleFormSubmit(event) {
             event.preventDefault();
             const inputEl = document.getElementById('userInput');
             const message = inputEl.value.trim();
-            if (!message) return;
+
+            if (!message && pendingAttachments.length === 0) return;
 
             inputEl.value = '';
             sendUserMessage(message);
         }
 
-        // 사용자 메시지 전송 및 AI 응답 요청
+        // 사용자 메시지 및 첨부 전송
         async function sendUserMessage(text) {
-            // 환영 카드 숨기기
             const welcomeCard = document.getElementById('welcomeCard');
             if (welcomeCard) welcomeCard.style.display = 'none';
 
-            // 사용자 채팅 버블 추가
-            appendUserMessageUI(text);
+            // 현재 첨부목록 복사 후 리셋
+            const currentAttachments = [...pendingAttachments];
+            pendingAttachments = [];
+            renderAttachmentPreviews();
 
-            // 로딩 메시지 표시
+            // UI 표시
+            appendUserMessageUI(text, currentAttachments);
+
+            // 로딩 표시
             const loadingId = appendLoadingUI();
 
-            // Gemini API 호출
             try {
-                const aiResponseText = await callGeminiAPI(text);
+                const aiResponseText = await callGeminiMultimodalAPI(text, currentAttachments);
                 removeMessageUI(loadingId);
                 appendAIMessageUI(aiResponseText);
             } catch (error) {
                 console.error("Gemini API Error:", error);
                 removeMessageUI(loadingId);
-                appendErrorMessageUI("문제를 가져오는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+                appendErrorMessageUI("문제를 분석하거나 응답하는 도중 오류가 발생했습니다. API키를 확인하거나 잠시 후 다시 시도해주세요.");
             }
         }
 
-        // UI: 사용자 메시지
-        function appendUserMessageUI(text) {
+        // UI: 사용자 메시지 출력 (첨부 썸네일/링크 포함)
+        function appendUserMessageUI(text, attachments = []) {
             const chatContainer = document.getElementById('chatContainer');
             const messageDiv = document.createElement('div');
             messageDiv.className = "flex justify-end chat-bubble-user mb-4";
+
+            let attachmentsHTML = '';
+            if (attachments.length > 0) {
+                attachmentsHTML = `<div class="flex flex-wrap gap-2 mb-2 justify-end">`;
+                attachments.forEach(att => {
+                    if (att.type === 'image') {
+                        attachmentsHTML += `
+                            <img src="${att.previewUrl}" class="w-24 h-24 object-cover rounded-xl border border-sky-300 shadow-sm" alt="attached photo">
+                        `;
+                    } else if (att.type === 'link') {
+                        attachmentsHTML += `
+                            <a href="${escapeHTML(att.url)}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 bg-sky-700 text-sky-100 rounded-lg text-xs hover:underline">
+                                <i class="fa-solid fa-link text-[10px]"></i> ${escapeHTML(att.url)}
+                            </a>
+                        `;
+                    }
+                });
+                attachmentsHTML += `</div>`;
+            }
+
             messageDiv.innerHTML = `
-                <div class="max-w-[80%] md:max-w-[65%] bg-sky-600 text-white rounded-2xl rounded-tr-none px-4 py-3 shadow-md">
-                    <p class="text-sm whitespace-pre-wrap">${escapeHTML(text)}</p>
+                <div class="max-w-[85%] md:max-w-[70%]">
+                    ${attachmentsHTML}
+                    ${text ? `
+                    <div class="bg-sky-600 text-white rounded-2xl rounded-tr-none px-4 py-3 shadow-md">
+                        <p class="text-sm whitespace-pre-wrap">${escapeHTML(text)}</p>
+                    </div>` : ''}
                 </div>
             `;
             chatContainer.appendChild(messageDiv);
             scrollToBottom();
         }
 
-        // UI: AI 응답 메시지 (문제 카드 및 일반 대화 지원)
+        // UI: AI 응답 메시지 출력
         function appendAIMessageUI(text) {
             const chatContainer = document.getElementById('chatContainer');
             const messageDiv = document.createElement('div');
             messageDiv.className = "flex justify-start chat-bubble-ai mb-4";
 
-            // 간단하게 정답 여부 체크 (결과 통계 업데이트)
             checkAnswerFeedbackInText(text);
 
             const formattedText = formatAIResponse(text);
@@ -396,32 +674,22 @@
             scrollToBottom();
         }
 
-        // AI 응답 마크다운/스타일링 포맷팅
         function formatAIResponse(text) {
             let output = escapeHTML(text);
-
-            // 볼드 텍스트 **내용**
             output = output.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-sky-900 bg-sky-50 px-1 rounded">$1</strong>');
-            
-            // 문제 강조 [문제], [질문], [해설] 등
             output = output.replace(/\[정답\]/g, '<span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-xs">⭕ 정답</span>');
             output = output.replace(/\[오답\]/g, '<span class="inline-block px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded text-xs">❌ 오답</span>');
-            output = output.replace(/\[난이도:\s*(.*?)\]/g, '<span class="inline-block px-2 py-0.5 bg-sky-100 text-sky-800 font-semibold rounded text-xs">난이도: $1</span>');
-
             return output;
         }
 
-        // 힌트 버튼 클릭 이벤트
         function requestHint() {
-            sendUserMessage("이 문제의 힌트를 살짝 주세요!");
+            sendUserMessage("이 문제의 힌트를 살짝 알려주세요!");
         }
 
-        // 정답 보기 버튼 클릭 이벤트
         function requestSolution() {
-            sendUserMessage("정답과 자세한 해설을 알려주세요.");
+            sendUserMessage("정답과 자세한 풀이 해설을 보여주세요.");
         }
 
-        // UI: 로딩 상태
         function appendLoadingUI() {
             const chatContainer = document.getElementById('chatContainer');
             const id = 'loading-' + Date.now();
@@ -437,7 +705,7 @@
                         <div class="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style="animation-delay: 0s"></div>
                         <div class="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
                         <div class="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-                        <span class="text-xs text-gray-500 ml-2 font-medium">AI가 문제를 구상하는 중...</span>
+                        <span class="text-xs text-gray-500 ml-2 font-medium">AI가 이미지와 메시지를 분석하는 중...</span>
                     </div>
                 </div>
             `;
@@ -446,7 +714,6 @@
             return id;
         }
 
-        // UI: 에러 메시지
         function appendErrorMessageUI(msg) {
             const chatContainer = document.getElementById('chatContainer');
             const errorDiv = document.createElement('div');
@@ -471,35 +738,57 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // Gemini API 호출 함수
-        async function callGeminiAPI(userPrompt) {
-            const apiKey = ""; // API key automatically handled by Canvas environment
+        // --- Gemini API 호출 (멀티모달 지원) ---
+        async function callGeminiMultimodalAPI(textPrompt, attachments = []) {
+            const apiKey = getActiveApiKey(); // localStorage 또는 "" (Canvas)
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
-            // 시스템 프롬프트 (AI 대화 및 문제 출제 페르소나 설정)
             const systemInstruction = `
             당신은 한국 학생들을 위한 친절하고 명쾌한 **'AI 공부 문제 풀이 튜터'**입니다.
             
-            [규칙]
-            1. 사용자가 특정 과목이나 단원(예: 수학 이차방정식, 영어 관계대명사 등)에 대한 문제 요청을 하면:
-               - 반드시 **[과목/단원]**, **[난이도]**, **[문제 유형]** 정보를 명시한 문제를 **1개** 생성하세요.
-               - 문제 문항을 명확하게 굵은 글씨로 제시하세요.
-               - 객관식 문제의 경우 1번부터 4번까지 보기를 명확히 적어주세요.
-               - 바로 정답을 공개하지 말고, 사용자가 풀 수 있도록 질문으로 마무리하세요.
-
-            2. 사용자가 문제에 대한 정답(예: "3번", "x = 5", "which", 또는 풀이 내용)을 작성하면:
-               - 정답 여부를 **[정답]** 또는 **[오답]** 태그와 함께 명확히 평가하세요.
-               - 왜 그것이 정답인지(또는 오답인지) 친절하고 이해하기 쉽게 **단계별 상세 해설**을 제공하세요.
-               - 관련 개념 요약 및 오답 피드백을 제공하고, 다음 문제 요청 여부를 물어보세요.
-
-            3. 사용자가 "힌트"를 요청하면 정답을 바로 주지 말고 핵심 공식을 알려주는 따뜻한 힌트를 주세요.
-            4. 정중하고 격려하는 톤으로 답변하세요.
+            [핵심 역량 및 역할]
+            1. 사용자가 이미지를 첨부한 경우:
+               - 이미지 속 문제, 수식, 그래프, 한글/영어 지문, 교재 내용을 정확히 시각적으로 인식하세요.
+               - 이미지가 풀이 대상 문제인 경우: 즉시 해당 문제를 채점하거나 해설 및 유사 문제를 제시하세요.
+               - 이미지가 참고 자료인 경우: 이미지의 개념에 기반한 맞춤 문제를 만들어 내주세요.
+            2. 사용자가 참고 링크(URL)를 전달한 경우:
+               - 해당 주제/링크와 관련된 맞춤형 문제를 생성하거나 질문에 답변하세요.
+            3. 일반 문제 출제 요청 시:
+               - **[과목/단원]**, **[난이도]**, **[문제]**를 명확하게 제시하고, 사용자가 답을 입력할 수 있도록 유도하세요.
+            4. 정답 채점 시:
+               - **[정답]** 또는 **[오답]**을 명확히 명시하고, 이해하기 쉬운 **단계별 해설**을 제공하세요.
             `;
 
-            // 대화 히스토리 구성
+            // Prompt에 링크 주소 정보 결합
+            let fullText = textPrompt || '';
+            const links = attachments.filter(a => a.type === 'link').map(a => a.url);
+            if (links.length > 0) {
+                fullText += `\n\n[참고 첨부 링크]:\n` + links.join('\n');
+            }
+
+            // user turn 의 parts 구성
+            const userParts = [];
+            
+            if (fullText.trim()) {
+                userParts.push({ text: fullText });
+            } else if (attachments.some(a => a.type === 'image')) {
+                userParts.push({ text: "첨부한 이미지(사진) 속 내용을 분석해서 문제를 풀거나 정답을 확인하고 해설해줘!" });
+            }
+
+            // 이미지 데이터 inlineData 추가
+            attachments.filter(a => a.type === 'image').forEach(img => {
+                userParts.push({
+                    inlineData: {
+                        mimeType: img.mimeType,
+                        data: img.base64Data
+                    }
+                });
+            });
+
+            // 대화 내역에 추가
             conversationHistory.push({
                 role: "user",
-                parts: [{ text: userPrompt }]
+                parts: userParts
             });
 
             const payload = {
@@ -509,7 +798,7 @@
                 }
             };
 
-            // exponential backoff 재시도 로직
+            // 재시도 로직
             let response = null;
             let retries = 0;
             const maxRetries = 3;
@@ -523,24 +812,24 @@
                     });
                     if (response.ok) break;
                 } catch (e) {
-                    // ignore retry logs
+                    // backoff
                 }
                 retries++;
                 await new Promise(r => setTimeout(r, 1000 * Math.pow(2, retries)));
             }
 
             if (!response || !response.ok) {
-                throw new Error("API call failed");
+                throw new Error("Gemini API Request failed");
             }
 
             const data = await response.json();
             const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
             if (!aiText) {
-                throw new Error("No response text from Gemini API");
+                throw new Error("Empty response from AI");
             }
 
-            // 대화 내역에 AI 응답 저장
+            // 히스토리에 모델 응답 추가
             conversationHistory.push({
                 role: "model",
                 parts: [{ text: aiText }]
@@ -549,7 +838,7 @@
             return aiText;
         }
 
-        // 정답 여부 텍스트 감지 후 통계 업데이트
+        // 정답 판별 후 통계 업데이트
         function checkAnswerFeedbackInText(text) {
             if (text.includes("[정답]") || text.includes("⭕ 정답") || text.includes("정답입니다")) {
                 stats.total += 1;
@@ -582,18 +871,39 @@
             }
         }
 
-        // 대화 히스토리 및 화면 초기화
         function clearChatHistory() {
             conversationHistory = [];
+            pendingAttachments = [];
+            renderAttachmentPreviews();
+
             const chatContainer = document.getElementById('chatContainer');
             chatContainer.innerHTML = '';
 
-            // 환영 카드 재표시
             const welcomeCard = document.createElement('div');
             welcomeCard.id = "welcomeCard";
             welcomeCard.className = "bg-white/90 rounded-2xl p-6 shadow-sm border border-amber-200 max-w-2xl mx-auto my-4 text-center space-y-4";
             welcomeCard.innerHTML = `
                 <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-inner">
-                    <i class="fa-solid fa-brain"></i>
+                    <i class="fa-solid fa-images text-sky-600"></i>
                 </div>
                 <div>
+                    <h3 class="text-lg font-bold text-gray-800">대화가 초기화되었습니다.</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                        새로운 과목을 적거나 사진/링크를 첨부하여 질문을 시작하세요.
+                    </p>
+                </div>
+            `;
+            chatContainer.appendChild(welcomeCard);
+        }
+
+        function escapeHTML(str) {
+            return (str || '')
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
