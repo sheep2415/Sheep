@@ -1,68 +1,186 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Skul Wɔk Learner</title>
-    <!-- link fɔ konekt CSS file -->
-    <link rel="stylesheet" href="style.css">
+    <title>AI 학습 도우미</title>
+    <!-- 12. link : 외부 폰트/스타일 연결용 태그 -->
+    <link rel="stylesheet" href="#">
+
+    <!-- CSS 코드 (HTML 파일 안에 같이 작성) -->
+    <style>
+        /* 7. display (flex) : 전체 화면 좌/우 배치 */
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* [2: 해설] 좌측 영역 (3. width, 4. height, 1. background-color, 2. border, 5. margin, 6. padding) */
+        .sidebar-explanation {
+            width: 35%;
+            height: 100%;
+            background-color: #d0e1f9; /* 하늘색 배경 */
+            border: 1px solid #4d648d;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .explanation-box {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        /* 11. 표 스타일링 (2. border, 6. padding) */
+        table {
+            width: 100%;
+            border: 1px solid #000000;
+        }
+
+        th, td {
+            border: 1px solid #000000;
+            padding: 5px;
+        }
+
+        /* [3: 화면] 우측 메인 영역 (3. width, 4. height, 1. background-color, 2. border, 6. padding) */
+        .main-screen {
+            width: 65%;
+            height: 100%;
+            background-color: #fbe3b5; /* 연한 노란색 배경 */
+            border: 1px solid #d9a05b;
+            padding: 20px;
+        }
+
+        /* [4: 입력된 화면] 문제 출력 영역 (3. width, 4. height, 1. background-color, 2. border, 5. margin, 6. padding) */
+        .display-screen {
+            width: 90%;
+            height: 55%;
+            background-color: #dbe9f6;
+            border: 2px solid #315b7d;
+            margin: 15px 0;
+            padding: 15px;
+        }
+
+        /* 하단 입력 영역 감싸기 (7. display: flex) */
+        .input-container {
+            display: flex;
+            width: 95%;
+            background-color: #cccccc;
+            border: 1px solid #888888;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        /* [5: 학습지 링크나 사진 등 첨부] 버튼 (7. display: inline-block) */
+        .attachment-btn {
+            display: inline-block;
+            width: 25%;
+            height: 40px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        /* [1: 입력창] (7. display: inline-block) */
+        .input-box {
+            display: inline-block;
+            width: 70%;
+            height: 40px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        /* 10. img & 9. a 스타일 (3. width, 4. height, 7. display: inline-block) */
+        img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #555555;
+        }
+
+        a {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Main Container Layout -->
+    <!-- 4. div & 13. class : 레이아웃 구분 -->
     <div class="container">
         
-        <!-- Part 2: Hɛsp (Explenashɔn ɛn Ansa Sɛkshɔn) -->
+        <!-- [2: 해설] 좌측 해설지 영역 -->
         <div class="sidebar-explanation">
-            <h2>Hɛsp ɛn Ansa Sɛkshɔn</h2>
-            <p>We u gi u ansa, di AI go tayp plɛnti explenashɔn ya fɔ hɛlp u ɔndastand di tins tranga kɔrectly.</p>
+            <!-- 1. h1~h3 -->
+            <h2>해설지</h2>
+            <!-- 2. p -->
+            <p>AI가 문제 정답 및 해설을 알려주는 영역입니다.</p>
             
-            <h3>Pɔsibl Question / Solution:</h3>
             <div class="explanation-box">
-                <p><strong>Status:</strong> <span class="status-text">De wɛt fɔ u fɔ ansa...</span></p>
-                <p><strong>Plɛnti Explenashɔn:</strong></p>
-                <p>Di explain go dey sho ya so wan taym u enta u ansa na di mɛsaz bɔks.</p>
+                <p><strong>채점 결과:</strong> 정답입니다!</p>
+                <!-- 5. span -->
+                <p><strong>해설:</strong> <span>핵심 개념에 대한 설명이 들어갑니다.</span></p>
             </div>
 
-            <!-- Table fɔ sho u progress -->
-            <h3>U Progress Summary</h3>
+            <!-- 6. ul, 8. li -->
+            <h3>학습 목차</h3>
+            <ul>
+                <li>1단원: 기본 개념</li>
+                <li>2단원: 심화 문제</li>
+            </ul>
+
+            <!-- 11. 표 (table, tr, th, td) -->
+            <h3>채점 기록</h3>
             <table>
                 <tr>
-                    <th>Nɔmba</th>
-                    <th>Status</th>
+                    <th>문제</th>
+                    <th>결과</th>
                 </tr>
                 <tr>
                     <td>Q1</td>
-                    <td>De wɛt</td>
+                    <td>O</td>
                 </tr>
             </table>
         </div>
 
-        <!-- Part 3: Main Screen (Chat & Question Area) -->
+        <!-- [3: 화면] 메인 화면 영역 -->
         <div class="main-screen">
-            <h1>AI Skul Wɔk Tutor</h1>
-            <p>Tel AI wetin u wan lan, ɛn in go gi u custom kwɛstyɔn!</p>
+            <!-- 1. h1~h3 -->
+            <h1>AI 학습 시스템</h1>
 
-            <!-- Part 4: Display Screen Area -->
+            <!-- [4: 입력된 화면] AI가 문제를 출제하는 메인 창 -->
             <div class="display-screen">
-                <h3>Current Kwɛstyɔn:</h3>
-                <p><em>“Plis gi AI damp kin kwɛstyɔn/skul tins mɛk in prepare bad bɔks fɔ u.”</em></p>
+                <h3>문제 화면</h3>
+                <p>입력된 내용을 바탕으로 생성된 맞춤형 문제 공간입니다.</p>
+                <!-- 3. br -->
                 <br>
-                <p><strong>Attachment Link:</strong> <a href="#" target="_blank">Luk sample learning resource</a></p>
-                <br>
-                <img src="https://via.placeholder.com/150" alt="Learning Sample Image">
+                <p>Q. 다음 질문에 알맞은 답을 골라주세요.</p>
+                <!-- 7. ol, 8. li -->
+                <ol>
+                    <li>보기 1번</li>
+                    <li>보기 2번</li>
+                </ol>
+                <!-- 9. a -->
+                <p><a href="#">학습 참고 링크 열기</a></p>
+                <!-- 10. img (alt 포함) -->
+                <img src="https://via.placeholder.com/100" alt="참고 이미지">
             </div>
 
-            <!-- Part 1 & 5: Input Area & Attachment Button -->
+            <!-- 하단 입력/첨부 영역 -->
             <div class="input-container">
-                <!-- Part 5: Link / Photo Attachment Button -->
+                <!-- [5: 학습지 링크나 사진 등 첨부] -->
                 <div class="attachment-btn">
-                    <a href="#">📎 Attach Link / Photo</a>
+                    <!-- 9. a -->
+                    <a href="#">📷 링크/사진 첨부</a>
                 </div>
 
-                <!-- Part 1: Input Box -->
-                <div class="input-box">
-                    <p><strong>U Mɛsaz/Ansa:</strong></p>
-                    <p><span>[ Tayp wetin u wan lan or u ansa ya... ]</span></p>
+                <!-- [1: 입력창] -->
+                <!-- 14. id -->
+                <div class="input-box" id="user-input-area">
+                    <p><strong>입력창:</strong> <span>[ AI에게 전달할 내용을 입력하세요 ]</span></p>
                 </div>
             </div>
 
