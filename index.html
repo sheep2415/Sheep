@@ -1,11 +1,11 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>AI 학습 도우미</title>
-    <!-- 12. link : 외부 폰트/스타일 연결용 태그 -->
+    <!-- 12. link : 외부 연결 -->
     <link rel="stylesheet" href="#">
 
-    <!-- CSS 코드 (HTML 파일 안에 같이 작성) -->
     <style>
         /* 7. display (flex) : 전체 화면 좌/우 배치 */
         .container {
@@ -20,7 +20,7 @@
         .sidebar-explanation {
             width: 35%;
             height: 100%;
-            background-color: #d0e1f9; /* 하늘색 배경 */
+            background-color: #d0e1f9;
             border: 1px solid #4d648d;
             margin: 0;
             padding: 20px;
@@ -48,7 +48,7 @@
         .main-screen {
             width: 65%;
             height: 100%;
-            background-color: #fbe3b5; /* 연한 노란색 배경 */
+            background-color: #fbe3b5;
             border: 1px solid #d9a05b;
             padding: 20px;
         }
@@ -82,9 +82,10 @@
             border: 1px solid #000000;
             margin: 5px;
             padding: 5px;
+            text-align: center;
         }
 
-        /* [1: 입력창] (7. display: inline-block) */
+        /* [1: 입력창] 실제 글자 입력 가능하도록 설정 (7. display: inline-block) */
         .input-box {
             display: inline-block;
             width: 70%;
@@ -93,6 +94,8 @@
             border: 1px solid #000000;
             margin: 5px;
             padding: 5px;
+            outline: none;
+            overflow-y: auto;
         }
 
         /* 10. img & 9. a 스타일 (3. width, 4. height, 7. display: inline-block) */
@@ -104,12 +107,14 @@
 
         a {
             display: inline-block;
+            text-decoration: none;
+            color: black;
         }
     </style>
 </head>
 <body>
 
-    <!-- 4. div & 13. class : 레이아웃 구분 -->
+    <!-- 4. div & 13. class -->
     <div class="container">
         
         <!-- [2: 해설] 좌측 해설지 영역 -->
@@ -164,23 +169,23 @@
                     <li>보기 2번</li>
                 </ol>
                 <!-- 9. a -->
-                <p><a href="#">학습 참고 링크 열기</a></p>
+                <p><a href="https://www.google.com" target="_blank">🔗 학습 참고 링크 열기</a></p>
                 <!-- 10. img (alt 포함) -->
                 <img src="https://via.placeholder.com/100" alt="참고 이미지">
             </div>
 
             <!-- 하단 입력/첨부 영역 -->
             <div class="input-container">
-                <!-- [5: 학습지 링크나 사진 등 첨부] -->
+                <!-- [5: 학습지 링크나 사진 등 첨부] 버튼 -->
                 <div class="attachment-btn">
                     <!-- 9. a -->
-                    <a href="#">📷 링크/사진 첨부</a>
+                    <a href="#">📷 파일/링크 첨부</a>
                 </div>
 
-                <!-- [1: 입력창] -->
+                <!-- [1: 입력창] contenteditable 속성을 추가해 실제 타이핑 가능하도록 수정 -->
                 <!-- 14. id -->
-                <div class="input-box" id="user-input-area">
-                    <p><strong>입력창:</strong> <span>[ AI에게 전달할 내용을 입력하세요 ]</span></p>
+                <div class="input-box" id="user-input-area" contenteditable="true">
+                    여기를 클릭하고 공부할 내용을 직접 입력해보세요...
                 </div>
             </div>
 
