@@ -1,1117 +1,1114 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공부 문제 풀이 (문제 은행 버젼)</title>
+    <title>공부 문제 풀이 (초1~고3 문제 은행)</title>
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Marked.js for Markdown Formatting -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
-    <!-- Canvas Confetti for Celebration Effects -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <!-- KaTeX for Mathematical Formula Rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Tailwind Custom Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        wireframe: {
-                            sidebar: '#e3f2fd',    /* Wireframe Soft Blue */
-                            sidebarDark: '#bbdefb',
-                            main: '#fffde7',       /* Wireframe Soft Yellow */
-                            mainDark: '#fff9c4',
-                            bottomBar: '#e0e0e0',  /* Wireframe Grey */
-                            btnBlue: '#2196f3',    /* Circular Blue Send Button */
-                            btnBlueHover: '#1976d2'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- 12. link 태그 (파비콘용 data URI) -->
+    <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgo=">
 
     <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', '맑은 고딕', sans-serif;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.03);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        
-        .prose p { margin-bottom: 0.5rem; }
-        .prose ul, .prose ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
-        .prose code { background-color: rgba(0,0,0,0.06); padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-size: 0.875em; }
 
-        @keyframes popIn {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        body {
+            /* 1. background-color */
+            background-color: #f8fafc;
+            /* 4. height */
+            height: 100vh;
+            overflow: hidden;
         }
-        .animate-pop { animation: popIn 0.25s ease-out forwards; }
+
+        /* 7. display (flex) 속성 필수 사용 */
+        .app-container {
+            display: flex;
+            /* 3. width */
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* 좌측 사이드바 (연한 파랑 #e6f0fa 및 #dbeafe) */
+        .sidebar {
+            width: 330px;
+            height: 100vh;
+            background-color: #e6f0fa;
+            /* 2. border */
+            border-right: 2px solid #bfdbfe;
+            /* 6. padding */
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* 7. display (inline-block) 속성 필수 사용 */
+        .badge {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            /* 5. margin */
+            margin-left: 6px;
+        }
+
+        .badge-green {
+            background-color: #059669;
+        }
+
+        .badge-orange {
+            background-color: #ea580c;
+        }
+
+        .section-title {
+            color: #1e3a8a;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 14px 0 8px 0;
+            border-bottom: 1px solid #bfdbfe;
+            padding-bottom: 4px;
+        }
+
+        .desc-text {
+            font-size: 12px;
+            color: #334155;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .filter-btn {
+            background-color: #ffffff;
+            border: 1px solid #93c5fd;
+            color: #1e293b;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .subject-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            background-color: #ffffff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            color: #1e293b;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subject-btn:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        /* 11. 표 스타일링 (table, tr, th, td) */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .stats-table th {
+            background-color: #bfdbfe;
+            color: #1e3a8a;
+            font-size: 11px;
+            padding: 6px;
+            text-align: center;
+        }
+
+        .stats-table td {
+            font-size: 13px;
+            font-weight: bold;
+            color: #0f172a;
+            padding: 6px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* 6, 7, 8. ul, ol, li 리스트 스타일 */
+        .guide-list {
+            padding-left: 18px;
+            font-size: 11px;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .guide-list li {
+            margin-bottom: 3px;
+        }
+
+        /* 우측 메인 영역 (연한 노랑 #fffde7 / #fef9c3) */
+        .main-workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #fffde7;
+        }
+
+        .workspace-header {
+            background-color: #fef08a;
+            border-bottom: 1px solid #fde047;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-title {
+            font-size: 16px;
+            color: #713f12;
+            font-weight: bold;
+        }
+
+        .clear-btn {
+            background-color: #ffffff;
+            border: 1px solid #eab308;
+            color: #854d0e;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .clear-btn:hover {
+            background-color: #fef08a;
+        }
+
+        .feed-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .chat-bubble-user {
+            align-self: flex-end;
+            background-color: #3b82f6;
+            color: #ffffff;
+            padding: 10px 14px;
+            border-radius: 16px 16px 2px 16px;
+            max-width: 70%;
+            font-size: 13px;
+            line-height: 1.4;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .chat-bubble-bot {
+            align-self: flex-start;
+            background-color: #ffffff;
+            color: #1e293b;
+            border: 1px solid #fde047;
+            padding: 12px 16px;
+            border-radius: 16px 16px 16px 2px;
+            max-width: 80%;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .quiz-card {
+            background-color: #ffffff;
+            border: 2px solid #facc15;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #fef08a;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-topic {
+            font-size: 13px;
+            font-weight: bold;
+            color: #854d0e;
+        }
+
+        .quiz-question {
+            font-size: 13px;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .option-btn:hover {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .option-btn.selected {
+            background-color: #dbeafe;
+            border-color: #2563eb;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .text-answer-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .hint-btn {
+            background-color: #fef3c7;
+            border: 1px solid #fde047;
+            color: #92400e;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .result-box {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .result-correct {
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .result-wrong {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        /* 하단 입력바 (와이어프레임 회색 배경 #e2e8f0) */
+        .bottom-bar {
+            background-color: #e2e8f0;
+            border-top: 1px solid #cbd5e1;
+            padding: 12px 20px;
+        }
+
+        .attachment-preview-area {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .preview-tag {
+            display: inline-block;
+            background-color: #ffffff;
+            border: 1px solid #94a3b8;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #334155;
+        }
+
+        /* 10. img (alt 속성 필수 작성) */
+        .preview-img-tag {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            object-fit: cover;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .input-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            padding: 4px 8px 4px 14px;
+            border: 1px solid #94a3b8;
+            border-radius: 24px;
+        }
+
+        .tool-btn {
+            background: none;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 2px 4px;
+            color: #64748b;
+        }
+
+        .tool-btn:hover {
+            color: #2563eb;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 13px;
+            padding: 6px;
+        }
+
+        /* 회색 라운드 바 우측의 파란색 원형 버튼 (#3b82f6) */
+        .send-btn {
+            width: 36px;
+            height: 36px;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* 9. a (외부 링크 전용) */
+        .external-link {
+            color: #2563eb;
+            text-decoration: underline;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row antialiased">
+<body>
 
-    <!-- Mobile Header -->
-    <header class="md:hidden bg-blue-100 border-b border-blue-200 p-3 flex justify-between items-center sticky top-0 z-30 shadow-xs">
-        <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <span class="font-bold text-blue-900 text-base">공부 문제 풀이</span>
-        </div>
-        <div class="flex items-center space-x-2">
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-semibold border border-emerald-300">
-                <i class="fa-solid fa-database mr-1"></i>문제은행
-            </span>
-            <button id="toggleSidebarBtn" class="p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Left Sidebar (Light Blue Wireframe Theme) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 z-40 w-80 bg-wireframe-sidebar border-r border-blue-200 flex flex-col transition-transform duration-300 ease-in-out shadow-lg md:shadow-none h-screen">
-        
-        <!-- Sidebar Branding Header -->
-        <div class="p-4 border-b border-blue-200 flex items-center justify-between bg-blue-100/60">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-blue-500/20">
-                    <i class="fa-solid fa-book-bookmark"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-blue-950 text-base leading-tight">공부 문제 풀이</h1>
-                    <p class="text-xs text-blue-700 font-medium">오프라인 문제 은행 버젼</p>
-                </div>
-            </div>
-            <button id="closeSidebarBtn" class="md:hidden text-slate-500 hover:text-slate-800 p-1">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-
-        <!-- Scrollable Sidebar Content -->
-        <div class="flex-1 overflow-y-auto p-4 space-y-5 custom-scrollbar">
+    <!-- 4. div - 메인 레이아웃 컨테이너 -->
+    <div class="app-container">
+        <!-- 좌측 사이드바 -->
+        <div class="sidebar">
+            <!-- 1. h1 태그 사용 -->
+            <h1 id="main-header">공부 문제 풀이<span class="badge">초1~고3</span></h1>
             
-            <!-- System Status Badge Card -->
-            <div class="bg-white/90 rounded-xl p-3 border border-blue-200 shadow-xs">
-                <div class="flex items-center justify-between mb-1">
-                    <span class="text-xs font-bold text-blue-900 uppercase tracking-wider">시스템 구동 상태</span>
-                    <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 100% 정상
+            <!-- 2. p 태그 및 3. br 태그 사용 -->
+            <p class="desc-text">
+                초등 1학년부터 고등 3학년까지!<br>
+                원하는 학년과 과목을 선택하거나<br>
+                채팅창에 검색해 맞춤형 문제를 풀어보세요.
+            </p>
+
+            <!-- 1. h3 태그 사용 -->
+            <h3 class="section-title">1. 학년 선택</h3>
+            <div class="filter-group" id="grade-filter-group">
+                <button class="filter-btn active" onclick="setGradeFilter('전체', this)">전체</button>
+                <button class="filter-btn" onclick="setGradeFilter('초등', this)">초등(초1~6)</button>
+                <button class="filter-btn" onclick="setGradeFilter('중등', this)">중등(중1~3)</button>
+                <button class="filter-btn" onclick="setGradeFilter('고등', this)">고등(고1~3)</button>
+            </div>
+
+            <h3 class="section-title">2. 과목 선택</h3>
+            <div class="filter-group" id="subject-filter-group">
+                <button class="filter-btn active" onclick="setSubjectFilter('전체', this)">전체</button>
+                <button class="filter-btn" onclick="setSubjectFilter('국어', this)">국어</button>
+                <button class="filter-btn" onclick="setSubjectFilter('수학', this)">수학</button>
+                <button class="filter-btn" onclick="setSubjectFilter('과학', this)">과학</button>
+                <button class="filter-btn" onclick="setSubjectFilter('사회/한국사', this)">사회/한국사</button>
+                <button class="filter-btn" onclick="setSubjectFilter('영어', this)">영어</button>
+            </div>
+
+            <h3 class="section-title">빠른 대표 문제 선택</h3>
+            <div id="quick-subject-list">
+                <button class="subject-btn" onclick="triggerQuickQuiz('초등', '수학')">🐣 [초등] 덧셈과 뺄셈 / 도형</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('초등', '국어')">📖 [초등] 올바른 맞춤법</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('중등', '수학')">📐 [중등] 일차방정식과 피타고라스</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('중등', '과학')">🔬 [중등] 원소 기호와 화학 반응</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('고등', '국어')">📜 [고등] 고전 시가와 비문학</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('고등', '수학')">📊 [고등] 다항식 연산과 미분/적분</button>
+                <button class="subject-btn" onclick="triggerQuickQuiz('고등', '영어')">🔤 [고등] 수능/모의고사 어휘</button>
+            </div>
+
+            <h3 class="section-title">3. 오늘의 학습 현황</h3>
+            <!-- 11. 표 태그 (table, tr, th, td) 사용 -->
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>풀이 수</th>
+                        <th>정답 수</th>
+                        <th>정답률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="stat-total">0</td>
+                        <td id="stat-correct">0</td>
+                        <td id="stat-accuracy">0%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-title">4. 이용 방법 안내</h3>
+            <!-- 6. ul 및 8. li 태그 사용 -->
+            <ul class="guide-list">
+                <li>외부 라이브러리 없이 구현된 완전 자립형 앱입니다.</li>
+                <li>학년 및 과목별 맞춤 문제를 출제합니다.</li>
+            </ul>
+
+            <!-- 7. ol 및 8. li 태그 사용 -->
+            <ol class="guide-list">
+                <li>원하는 학년/과목을 클릭합니다.</li>
+                <li>정답 제출 후 단계별 해설을 확인합니다.</li>
+            </ol>
+
+            <!-- 9. a 태그 사용 (외부 링크) -->
+            <p class="desc-text" style="margin-top: auto; padding-top: 10px;">
+                참고 학습 사이트: <a href="https://www.ebs.co.kr" target="_blank" class="external-link" id="ebs-link">EBSi 학습 포털 바로가기</a>
+            </p>
+        </div>
+
+        <!-- 우측 메인 영역 (대화창 및 문제 풀이) -->
+        <div class="main-workspace">
+            <div class="workspace-header">
+                <!-- 1. h2 태그 사용 -->
+                <h2 class="main-title">📖 AI 공부 문제 풀이 메인 대화</h2>
+                <button class="clear-btn" onclick="clearFeed()">대화 비우기</button>
+            </div>
+
+            <!-- 대화 메시지 및 문제 카드 출력 구역 -->
+            <div class="feed-container" id="feed-container">
+                <div class="chat-bubble-bot">
+                    반갑습니다! <b>[초1 ~ 고3 공부 문제 풀이]</b> 학습 튜터입니다! 👋<br>
+                    왼쪽 사이드바에서 학년과 과목을 선택하시거나, 채팅창에 <b>"초3 수학"</b>, <b>"중2 과학"</b>, <b>"고1 국어"</b> 처럼 말해 보세요!
+                </div>
+            </div>
+
+            <!-- 하단 회색 라운드 입력 영역 -->
+            <div class="bottom-bar">
+                <div class="attachment-preview-area" id="attachment-preview-area" style="display: none;">
+                    <span class="preview-tag" id="img-preview-tag" style="display: none;">
+                        <!-- 10. img 태그 (alt 속성 필수 작성) -->
+                        <img id="preview-img" src="" alt="첨부된 학습 참고 이미지 미리보기" class="preview-img-tag">
+                        사진 첨부됨 <button onclick="clearImageAttachment()" style="border:none; background:none; cursor:pointer; color:red; font-weight:bold;">✕</button>
+                    </span>
+                    <span class="preview-tag" id="link-preview-tag" style="display: none;">
+                        🔗 <span id="preview-link-url"></span> <button onclick="clearLinkAttachment()" style="border:none; background:none; cursor:pointer; color:red; font-weight:bold;">✕</button>
                     </span>
                 </div>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                    외부 API 연결 없이 브라우저 단독 문제 데이터베이스로 완전 무료 동적 작동합니다.
-                </p>
-            </div>
 
-            <!-- Subject Quick Selection -->
-            <div>
-                <label class="block text-xs font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center justify-between">
-                    <span><i class="fa-solid fa-layer-group text-blue-600 mr-1"></i> 과목/단원 빠른 선택</span>
-                    <span id="quizCountBadge" class="text-[10px] bg-blue-200 text-blue-800 px-1.5 py-0.5 rounded-full font-semibold">16문제 보유</span>
-                </label>
-                <div class="space-y-1.5" id="quickSubjectList">
-                    <button data-subject="수학" class="subject-btn w-full text-left px-3 py-2 text-xs rounded-xl bg-white hover:bg-blue-600 hover:text-white text-slate-800 border border-blue-200 transition font-medium flex items-center justify-between group shadow-xs">
-                        <span>📐 수학 - 이차방정식 & 근의 공식</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-blue-400 group-hover:text-white transition"></i>
-                    </button>
-                    <button data-subject="영어" class="subject-btn w-full text-left px-3 py-2 text-xs rounded-xl bg-white hover:bg-blue-600 hover:text-white text-slate-800 border border-blue-200 transition font-medium flex items-center justify-between group shadow-xs">
-                        <span>🔤 영어 - 관계대명사 (Who/Which)</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-blue-400 group-hover:text-white transition"></i>
-                    </button>
-                    <button data-subject="한국사" class="subject-btn w-full text-left px-3 py-2 text-xs rounded-xl bg-white hover:bg-blue-600 hover:text-white text-slate-800 border border-blue-200 transition font-medium flex items-center justify-between group shadow-xs">
-                        <span>📜 한국사 - 조선 세종과 문화재</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-blue-400 group-hover:text-white transition"></i>
-                    </button>
-                    <button data-subject="과학" class="subject-btn w-full text-left px-3 py-2 text-xs rounded-xl bg-white hover:bg-blue-600 hover:text-white text-slate-800 border border-blue-200 transition font-medium flex items-center justify-between group shadow-xs">
-                        <span>⚡ 과학 - 물리학 뉴턴 운동 법칙</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-blue-400 group-hover:text-white transition"></i>
-                    </button>
-                    <button data-subject="프로그래밍" class="subject-btn w-full text-left px-3 py-2 text-xs rounded-xl bg-white hover:bg-blue-600 hover:text-white text-slate-800 border border-blue-200 transition font-medium flex items-center justify-between group shadow-xs">
-                        <span>💻 프로그래밍 - Python 리스트/함수</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-blue-400 group-hover:text-white transition"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Quiz Options (Difficulty & Problem Type) -->
-            <div class="space-y-3 pt-2 border-t border-blue-200/80">
-                <!-- Difficulty Selection -->
-                <div>
-                    <label class="block text-xs font-bold text-blue-900 uppercase tracking-wider mb-1.5">난이도</label>
-                    <div class="grid grid-cols-3 gap-1.5 text-xs">
-                        <button data-diff="쉬움" class="diff-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50">쉬움</button>
-                        <button data-diff="보통" class="diff-btn py-1.5 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-bold text-center shadow-xs">보통</button>
-                        <button data-diff="어려움" class="diff-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50">어려움</button>
-                    </div>
-                </div>
-
-                <!-- Problem Type Selection -->
-                <div>
-                    <label class="block text-xs font-bold text-blue-900 uppercase tracking-wider mb-1.5">문제 유형</label>
-                    <div class="grid grid-cols-3 gap-1.5 text-xs">
-                        <button data-type="전체" class="type-btn py-1.5 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-bold text-center shadow-xs">전체</button>
-                        <button data-type="객관식" class="type-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50">객관식</button>
-                        <button data-type="주관식" class="type-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50">주관식</button>
-                    </div>
-                </div>
-
-                <!-- Generate/Fetch Quiz Button -->
-                <button id="fetchQuizBtn" class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2 text-xs">
-                    <i class="fa-solid fa-circle-play"></i> 조건에 맞는 문제 출제하기
-                </button>
-            </div>
-
-            <!-- Today's Learning Statistics Card -->
-            <div class="bg-white/90 border border-blue-200 rounded-xl p-3.5 text-blue-950 shadow-xs">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-blue-900 flex items-center gap-1">
-                        <i class="fa-solid fa-chart-pie text-blue-600"></i> 오늘의 학습 기록
-                    </span>
-                    <button id="resetStatsBtn" class="text-[10px] text-blue-700 hover:text-blue-950 underline">초기화</button>
-                </div>
-                <div class="grid grid-cols-3 gap-2 text-center py-1">
-                    <div class="bg-blue-50/80 rounded-lg p-2 border border-blue-100">
-                        <div class="text-[10px] text-slate-500 font-medium">풀이 문제</div>
-                        <div id="statTotal" class="text-base font-black text-slate-800">0</div>
-                    </div>
-                    <div class="bg-emerald-50/80 rounded-lg p-2 border border-emerald-100">
-                        <div class="text-[10px] text-slate-500 font-medium">정답 수</div>
-                        <div id="statCorrect" class="text-base font-black text-emerald-600">0</div>
-                    </div>
-                    <div class="bg-amber-50/80 rounded-lg p-2 border border-amber-100">
-                        <div class="text-[10px] text-slate-500 font-medium">정답률</div>
-                        <div id="statAccuracy" class="text-base font-black text-blue-600">0%</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="p-3 border-t border-blue-200 text-center text-[11px] text-blue-700 font-medium bg-blue-100/50">
-            Smart Offline Quiz Engine v2.0
-        </div>
-    </aside>
-
-    <!-- Main Right Content Area (Light Yellow Wireframe Theme) -->
-    <main class="flex-1 flex flex-col h-[calc(100vh-57px)] md:h-screen overflow-hidden bg-wireframe-main">
-        
-        <!-- Top Workspace Header Bar -->
-        <div class="bg-amber-100/60 border-b border-amber-200/80 px-6 py-3 flex items-center justify-between shadow-2xs z-10">
-            <div class="flex items-center space-x-3 overflow-hidden">
-                <span id="currentSubjectBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-200/80 text-amber-900 border border-amber-300">
-                    <i class="fa-solid fa-book-open text-amber-700"></i>
-                    <span id="subjectBadgeText">수학 - 이차방정식과 근의 공식</span>
-                </span>
-                <span id="diffBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-white text-slate-700 border border-amber-300 font-semibold">
-                    난이도: 보통
-                </span>
-            </div>
-            
-            <div class="flex items-center space-x-2">
-                <button id="clearChatBtn" class="px-3 py-1.5 text-xs text-slate-600 hover:text-slate-900 hover:bg-amber-200/50 rounded-lg transition flex items-center gap-1">
-                    <i class="fa-solid fa-rotate-right"></i>
-                    <span class="hidden sm:inline">대화 비우기</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Scrollable Feed / Chat Workspace -->
-        <div id="feedContainer" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 custom-scrollbar">
-            
-            <!-- Welcome / Instructions Card -->
-            <div id="welcomeCard" class="max-w-2xl mx-auto bg-white rounded-2xl p-6 border border-amber-200 shadow-sm text-center my-6 space-y-4">
-                <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center mx-auto text-2xl border border-amber-200">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold text-slate-800 mb-1">공부 문제 풀이 (오프라인 문제 은행)</h2>
-                    <p class="text-xs md:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                        왼쪽 사이드바에서 과목과 난이도를 선택하거나, 아래 입력창에 <b>"한국사 문제 내줘"</b>, <b>"수학 보통"</b>처럼 채팅으로 요청해보세요!
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-left">
-                    <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200/60">
-                        <div class="font-bold text-xs text-amber-900 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-brain text-amber-600"></i> 스마트 문제 자동추천
-                        </div>
-                        <p class="text-[11px] text-slate-500">채팅 키워드를 분석하여 관련된 난이도의 문제 자동 출제</p>
-                    </div>
-                    <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200/60">
-                        <div class="font-bold text-xs text-amber-900 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-square-check text-emerald-600"></i> 자동 채점 & 해설
-                        </div>
-                        <p class="text-[11px] text-slate-500">정답 제출 시 즉시 정오답 판정 및 상세 단계별 해설 제공</p>
-                    </div>
-                    <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200/60">
-                        <div class="font-bold text-xs text-amber-900 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-paperclip text-blue-600"></i> 참고 사진/링크 첨부
-                        </div>
-                        <p class="text-[11px] text-slate-500">풀이 노트 사진이나 관련 웹 페이지 링크 함께 첨부 가능</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Messages and Quiz Cards rendered dynamically here -->
-            <div id="messagesList" class="max-w-3xl mx-auto space-y-6"></div>
-
-        </div>
-
-        <!-- Bottom Input Area (Grey Bar Wireframe Theme) -->
-        <div class="bg-wireframe-bottomBar border-t border-slate-300 p-3 md:p-4 sticky bottom-0 z-20">
-            <div class="max-w-3xl mx-auto space-y-2">
-                
-                <!-- Attached Previews Bar -->
-                <div id="attachmentPreviewBar" class="hidden flex items-center gap-2 overflow-x-auto py-1">
-                    <div id="imgPreviewTag" class="hidden items-center gap-2 bg-white border border-slate-300 px-2.5 py-1 rounded-lg text-xs shadow-xs">
-                        <img id="imgPreviewThumb" class="w-6 h-6 object-cover rounded" src="" alt="Thumbnail">
-                        <span class="text-slate-700 font-medium truncate max-w-[120px]">이미지 첨부됨</span>
-                        <button id="removeImgBtn" class="text-slate-400 hover:text-red-500 ml-1">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div id="linkPreviewTag" class="hidden items-center gap-2 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg text-xs text-blue-800 shadow-xs">
-                        <i class="fa-solid fa-link text-blue-600"></i>
-                        <span id="linkPreviewText" class="truncate max-w-[180px]">https://...</span>
-                        <button id="removeLinkBtn" class="text-slate-400 hover:text-red-500 ml-1">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Quick Prompt Suggestion Pills -->
-                <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1 text-xs">
-                    <button class="quick-prompt-btn whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-2xs font-medium">
-                        📐 수학 문제 줘
-                    </button>
-                    <button class="quick-prompt-btn whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-2xs font-medium">
-                        🔤 영어 문제 줘
-                    </button>
-                    <button class="quick-prompt-btn whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-2xs font-medium">
-                        📜 한국사 문제 줘
-                    </button>
-                    <button class="quick-prompt-btn whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-2xs font-medium">
-                        ⚡ 과학 문제 줘
-                    </button>
-                    <button class="quick-prompt-btn whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-2xs font-medium">
-                        💻 프로그래밍 문제 줘
-                    </button>
-                </div>
-
-                <!-- Main Text Input Box -->
-                <form id="chatForm" class="flex items-end gap-2 bg-white p-2 rounded-2xl border border-slate-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition shadow-sm">
+                <form class="input-form" onsubmit="handleSend(event)">
+                    <input type="file" id="image-file-input" accept="image/*" style="display: none;" onchange="handleImageSelected(event)">
                     
-                    <!-- File Input Hidden -->
-                    <input type="file" id="imageFileInput" accept="image/*" class="hidden">
+                    <button type="button" class="tool-btn" title="사진 첨부" onclick="document.getElementById('image-file-input').click()">📷</button>
+                    <button type="button" class="tool-btn" title="참고 링크 첨부" onclick="attachLinkPrompt()">🔗</button>
                     
-                    <!-- Camera/Photo Button -->
-                    <button type="button" id="attachImgBtn" title="사진/노트 첨부" class="p-2.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-xl transition flex-shrink-0">
-                        <i class="fa-solid fa-camera text-lg"></i>
-                    </button>
-
-                    <!-- Reference URL Link Button -->
-                    <button type="button" id="attachLinkBtn" title="참고 웹 링크 첨부" class="p-2.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-xl transition flex-shrink-0">
-                        <i class="fa-solid fa-link text-lg"></i>
-                    </button>
-
-                    <!-- Textarea -->
-                    <textarea id="userInput" rows="1" placeholder="과목명을 입력하거나(예: 수학 문제), 문제의 답을 작성하세요..." class="flex-1 bg-transparent border-0 focus:ring-0 resize-none max-h-32 p-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none custom-scrollbar"></textarea>
-
-                    <!-- Wireframe Blue Circular Send Button -->
-                    <button type="submit" id="sendBtn" class="w-10 h-10 rounded-full bg-wireframe-btnBlue hover:bg-wireframe-btnBlueHover active:scale-95 text-white flex items-center justify-center shadow-md shadow-blue-500/30 transition flex-shrink-0">
-                        <i class="fa-solid fa-paper-plane text-sm"></i>
-                    </button>
+                    <input type="text" id="user-input" class="chat-input" placeholder="학년과 과목 또는 궁금한 점을 입력하세요 (예: 고1 수학 문제, 초5 과학)" autocomplete="off">
+                    
+                    <!-- 파란색 원형 버튼 -->
+                    <button type="submit" class="send-btn" title="전송">➔</button>
                 </form>
-
-            </div>
-        </div>
-    </main>
-
-    <!-- Link Input Modal -->
-    <div id="linkModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-xl border border-slate-200 space-y-3">
-            <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                <i class="fa-solid fa-link text-blue-600"></i> 참고 웹 URL 첨부
-            </h3>
-            <p class="text-xs text-slate-500">학습에 참고할 웹페이지 주소를 입력하세요.</p>
-            <input type="url" id="linkUrlInput" placeholder="https://example.com/study" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-            <div class="flex justify-end gap-2 pt-2">
-                <button id="closeLinkModalBtn" class="px-3 py-1.5 text-xs text-slate-500 hover:bg-slate-100 rounded-lg">취소</button>
-                <button id="confirmLinkBtn" class="px-4 py-1.5 text-xs font-bold bg-blue-600 text-white rounded-lg hover:bg-blue-700">첨부</button>
             </div>
         </div>
     </div>
 
     <script>
-        const QUIZ_BANK = [
-            // 수학 (Math)
+        /* 초1~고3 통합 문제 데이터베이스 (Quiz Database) */
+        const QUIZ_DATABASE = [
+            // 초등 문제
             {
-                id: 'math_01',
+                id: 'e_math_1',
+                grade: '초등',
+                gradeDetail: '초1~2',
                 subject: '수학',
-                subtopic: '이차방정식과 근의 공식',
-                difficulty: '쉬움',
-                type: '객관식',
-                question: '이차방정식 $x^2 - 5x + 6 = 0$ 의 두 근의 합은 얼마인가요?',
-                options: ['1) 2', '2) 3', '3) 5', '4) 6'],
-                answer: '3) 5',
-                hint: '이차방정식 $ax^2 + bx + c = 0$에서 두 근의 합은 $-\\frac{b}{a}$ 입니다.',
-                explanation: '이차방정식 근과 계수와의 관계에 의해 두 근의 합은 $-\\frac{-5}{1} = 5$ 입니다.<br>실제로 인수분해를 하면 $(x-2)(x-3) = 0$ 이므로 두 근은 $x=2$ 또는 $x=3$ 이고 $2+3=5$ 입니다.'
-            },
-            {
-                id: 'math_02',
-                subject: '수학',
-                subtopic: '이차방정식과 판별식',
-                difficulty: '보통',
-                type: '객관식',
-                question: '이차방정식 $2x^2 - 4x + 1 = 0$ 의 판별식 $D$ 의 값은 무엇인가요?',
-                options: ['1) 4', '2) 8', '3) 12', '4) 16'],
-                answer: '2) 8',
-                hint: '판별식 공식은 $D = b^2 - 4ac$ 입니다.',
-                explanation: '$a=2, b=-4, c=1$ 을 판별식 공식에 대입하면:<br>$D = (-4)^2 - 4(2)(1) = 16 - 8 = 8$ 입니다.<br>$D > 0$ 이므로 서로 다른 두 실근을 가집니다.'
-            },
-            {
-                id: 'math_03',
-                subject: '수학',
-                subtopic: '이차방정식 구하기',
-                difficulty: '보통',
+                subtopic: '덧셈과 뺄셈',
                 type: '주관식',
-                question: '두 근이 $-1$과 $3$이고 이차항의 계수가 $1$인 이차방정식을 쓰시오. (단, $=0$ 포함할 것)',
-                options: [],
-                answer: 'x^2-2x-3=0',
-                hint: '두 근이 $\\alpha, \\beta$일 때 방정식은 $(x-\\alpha)(x-\\beta) = 0$ 형태로 작성합니다.',
-                explanation: '$(x - (-1))(x - 3) = 0$ 을 전개하면 $(x+1)(x-3) = 0$ 이며,<br>전개하면 $x^2 - 2x - 3 = 0$ 이 됩니다.'
-            },
-            {
-                id: 'math_04',
-                subject: '수학',
-                subtopic: '중근 조건',
-                difficulty: '어려움',
-                type: '객관식',
-                question: '이차방정식 $x^2 - 6x + 9 = 0$ 은 어떤 근을 가지나요?',
-                options: ['1) 서로 다른 두 실근', '2) 중근 (한 실근)', '3) 서로 다른 두 허근', '4) 근이 없음'],
-                answer: '2) 중근 (한 실근)',
-                hint: '판별식 $D = b^2 - 4ac$ 의 값이 $0$ 인지 확인해보세요.',
-                explanation: '$D = (-6)^2 - 4(1)(9) = 36 - 36 = 0$ 입니다.<br>판별식이 $0$ 이므로 완전제곱식 $(x-3)^2 = 0$ 이 되어 **중근($x=3$)**을 갖습니다.'
-            },
-
-            // 영어 (English)
-            {
-                id: 'eng_01',
-                subject: '영어',
-                subtopic: '관계대명사 주격',
-                difficulty: '쉬움',
-                type: '객관식',
-                question: '빈칸에 들어갈 가장 알맞은 관계대명사를 고르세요.<br>"This is the student ____ won the first prize in the contest."',
-                options: ['1) which', '2) who', '3) whose', '4) whom'],
-                answer: '2) who',
-                hint: '선행사가 사람(the student)이고 뒤에 동사(won)가 오므로 주격 관계대명사가 필요합니다.',
-                explanation: '선행사가 사람(the student)이고 관계대명사 절 내부에서 주어 역할을 하므로 주격 관계대명사 **who** (또는 that)가 적절합니다.'
-            },
-            {
-                id: 'eng_02',
-                subject: '영어',
-                subtopic: '관계대명사 what',
-                difficulty: '보통',
-                type: '주관식',
-                question: '선행사를 자체에 포함하여 \'~하는 것\'이라는 의미를 가지며 `the thing which`로 바꾸어 쓸 수 있는 관계대명사 스펠링을 쓰시오.',
-                options: [],
-                answer: 'what',
-                hint: 'w로 시작하는 4글자 단어입니다.',
-                explanation: '관계대명사 **what**은 자체에 선행사를 포함하고 있어 앞에 별도의 선행사가 오지 않으며 명사절 역할을 합니다.'
-            },
-            {
-                id: 'eng_03',
-                subject: '영어',
-                subtopic: '관계대명사 소유격',
-                difficulty: '어려움',
-                type: '객관식',
-                question: '다음 빈칸에 알맞은 관계대명사는?<br>"I met a lady ____ father is a famous professor."',
-                options: ['1) who', '2) whom', '3) whose', '4) which'],
-                answer: '3) whose',
-                hint: '선행사(a lady)와 뒤에 온 명사(father) 사이에 \'~의\'(소유)의 관계가 성립합니다.',
-                explanation: '그 여성\'의\' 아버지가 유명한 교수라는 의미이므로 소유격 관계대명사 **whose**가 정답입니다.'
-            },
-
-            // 한국사 (Korean History)
-            {
-                id: 'his_01',
-                subject: '한국사',
-                subtopic: '조선 세종대왕 훈민정음',
-                difficulty: '쉬움',
-                type: '객관식',
-                question: '조선 세종 때 집현전 학자들과 함께 창제하여 반포한 훈민정음은 몇 년에 반포되었나요?',
-                options: ['1) 1392년', '2) 1443년', '3) 1446년', '4) 1592년'],
-                answer: '3) 1446년',
-                hint: '창제는 1443년, 반포는 1446년입니다.',
-                explanation: '훈민정음은 1443년(세종 25년)에 창제되어 3년간의 시험 및 정리 기간을 거쳐 **1446년(세종 28년)**에 최종 반포되었습니다.'
-            },
-            {
-                id: 'his_02',
-                subject: '한국사',
-                subtopic: '세종 시기 과학 기술',
-                difficulty: '보통',
-                type: '주관식',
-                question: '세종대왕 시기 측우기, 앙부일구(해시계), 자격루(물시계) 등을 제작한 대표적인 천재 과학자의 이름은?',
-                options: [],
-                answer: '장영실',
-                hint: '노비 출신이었으나 탁월한 재능으로 상의원 별좌에 등용된 인물입니다.',
-                explanation: '세종대왕의 후원을 받아 물시계인 자격루, 해시계인 앙부일구, 세계 최초의 정량적 우량계인 측우기 등을 발명한 인물은 **장영실**입니다.'
-            },
-            {
-                id: 'his_03',
-                subject: '한국사',
-                subtopic: '조선 문화재 및 법전',
-                difficulty: '어려움',
-                type: '객관식',
-                question: '세종 때 농사 직설을 편찬한 목적과 가장 관련이 깊은 것은 무엇인가요?',
-                options: [
-                    '1) 중국의 선진 농법을 그대로 이식하기 위해',
-                    '2) 우리 풍토에 맞는 독자적 풍토 농법을 보급하기 위해',
-                    '3) 농민들의 세금을 증대시키기 위해',
-                    '4) 양반들의 농장 확대를 지원하기 위해'
-                ],
-                answer: '2) 우리 풍토에 맞는 독자적 풍토 농법을 보급하기 위해',
-                hint: '정초, 변효문 등이 노농들의 경험을 바탕으로 편찬했습니다.',
-                explanation: '<농사직설>은 중국 농서에 의존하지 않고 우리나라 기후와 풍토에 맞는 농법을 원로 농민들의 경험을 토대로 수집해 보급한 실용적 농서입니다.'
-            },
-
-            // 과학 (Science)
-            {
-                id: 'sci_01',
-                subject: '과학',
-                subtopic: '뉴턴 운동 법칙',
-                difficulty: '쉬움',
-                type: '주관식',
-                question: '뉴턴의 운동 제2법칙 공식 $F = m \\times a$ 에서 $a$ 가 의미하는 물리량 한글 명칭을 쓰시오.',
-                options: [],
-                answer: '가속도',
-                hint: '속도의 변화율을 의미합니다.',
-                explanation: '$F$는 힘(Force), $m$은 질량(Mass), $a$는 **가속도(Acceleration)**를 의미합니다.'
-            },
-            {
-                id: 'sci_02',
-                subject: '과학',
-                subtopic: '가속도 계산',
-                difficulty: '보통',
-                type: '객관식',
-                question: '질량이 $2\\text{kg}$인 물체에 $10\\text{N}$의 알짜힘이 작용할 때, 이 물체의 가속도($\\text{m/s}^2$)는 얼마인가요?',
-                options: ['1) 2 m/s²', '2) 5 m/s²', '3) 10 m/s²', '4) 20 m/s²'],
-                answer: '2) 5 m/s²',
-                hint: '$a = \\frac{F}{m}$ 공식을 이용하세요.',
-                explanation: '$a = \\frac{F}{m} = \\frac{10\\text{N}}{2\\text{kg}} = 5\\text{m/s}^2$ 입니다.'
-            },
-            {
-                id: 'sci_03',
-                subject: '과학',
-                subtopic: '작용 반작용 법칙',
-                difficulty: '어려움',
-                type: '주관식',
-                question: '두 물체가 서로에게 미치는 힘은 크기가 같고 방향이 반대라는 "작용 반작용 법칙"은 뉴턴의 운동 제몇 법칙인가요? (숫자만 작성)',
+                question: '사과가 8개 있습니다. 친구에게 5개를 주었다면 남아있는 사과는 몇 개일까요?',
                 options: [],
                 answer: '3',
-                hint: '1법칙: 관성, 2법칙: 가속도, 3법칙: ?',
-                explanation: '작용 반작용 법칙은 뉴턴의 운동 **제3법칙**입니다.'
+                hint: '8에서 5를 빼보세요 (8 - 5).',
+                steps: [
+                    '1단계: 처음 사과의 개수는 8개입니다.',
+                    '2단계: 친구에게 준 개수 5개를 뺍니다.',
+                    '3단계: 8 - 5 = 3 이므로 정답은 3개입니다.'
+                ]
+            },
+            {
+                id: 'e_kor_1',
+                grade: '초등',
+                gradeDetail: '초3~4',
+                subject: '국어',
+                subtopic: '올바른 맞춤법',
+                type: '객관식',
+                question: '다음 중 올바른 맞춤법으로 쓰인 문장은 무엇인가요?',
+                options: ['1) 병이 빨리 낳기를 바랍니다.', '2) 병이 빨리 낫기를 바랍니다.', '3) 병이 빨리 낮기를 바랍니다.', '4) 병이 빨리 낯기를 바랍니다.'],
+                answer: '2) 병이 빨리 낫기를 바랍니다.',
+                hint: '병이나 상처가 고쳐지는 것은 "낫다"를 사용합니다.',
+                steps: [
+                    '1단계: "낳다"는 아이나 알을 배 밖으로 내놓을 때 사용합니다.',
+                    '2단계: "낫다"는 병이나 상처 따위가 고쳐지다라는 뜻입니다.',
+                    '3단계: 따라서 "낫기를 바랍니다"가 올바른 표현입니다.'
+                ]
+            },
+            {
+                id: 'e_sci_1',
+                grade: '초등',
+                gradeDetail: '초5~6',
+                subject: '과학',
+                subtopic: '자석의 성질',
+                type: '객관식',
+                question: '자석의 극에 대한 설명으로 옳은 것은 무엇인가요?',
+                options: ['1) 같은 극끼리는 서로 끌어당긴다.', '2) 다른 극끼리는 서로 밀어낸다.', '3) 자석을 반으로 자르면 극이 사라진다.', '4) N극과 S극은 서로 끌어당긴다.'],
+                answer: '4) N극과 S극은 서로 끌어당긴다.',
+                hint: '자석은 같은 극끼리 밀어내고, 다른 극끼리 끌어당깁니다.',
+                steps: [
+                    '1단계: 자석에는 N극과 S극이 있습니다.',
+                    '2단계: 같은 극(N-N, S-S)은 밀어내고(척력), 다른 극(N-S)은 끌어당깁니다(인력).',
+                    '3단계: 따라서 N극과 S극은 서로 끌어당기므로 4번이 정답입니다.'
+                ]
+            },
+            {
+                id: 'e_soc_1',
+                grade: '초등',
+                gradeDetail: '초5~6',
+                subject: '사회/한국사',
+                subtopic: '대한민국 임시정부',
+                type: '주관식',
+                question: '1919년 3·1 운동 이후 독립운동을 효율적으로 이끌기 위해 중국 상하이에 세운 정부의 이름은 무엇인가요?',
+                options: [],
+                answer: '대한민국 임시정부',
+                hint: '대한민국 ○○○○ (4글자)',
+                steps: [
+                    '1단계: 3·1 운동 이후 독립운동가들은 체계적인 독립운동 조직의 필요성을 느꼈습니다.',
+                    '2단계: 중국 상하이에 위치한 대한민국 임시정부가 수립되었습니다.',
+                    '3단계: 정답은 "대한민국 임시정부"입니다.'
+                ]
+            },
+            {
+                id: 'e_eng_1',
+                grade: '초등',
+                gradeDetail: '초3~6',
+                subject: '영어',
+                subtopic: '기초 어휘',
+                type: '객관식',
+                question: '다음 중 "도서관"을 뜻하는 영어 단어는 무엇인가요?',
+                options: ['1) Hospital', '2) Library', '3) Museum', '4) School'],
+                answer: '2) Library',
+                hint: '책이 가득 찬 장소를 의미합니다.',
+                steps: [
+                    '1단계: Hospital = 병원',
+                    '2단계: Library = 도서관',
+                    '3단계: Museum = 박물관, School = 학교'
+                ]
             },
 
-            // 프로그래밍 (Programming - Python)
+            // 중등 문제
             {
-                id: 'py_01',
-                subject: '프로그래밍',
-                subtopic: 'Python 기초 함수',
-                difficulty: '쉬움',
+                id: 'm_math_1',
+                grade: '중등',
+                gradeDetail: '중1~2',
+                subject: '수학',
+                subtopic: '일차방정식',
                 type: '주관식',
-                question: 'Python에서 리스트 `[10, 20, 30, 40]` 의 요소 개수를 구하는 `len([10, 20, 30, 40])` 의 실행 결과 숫자는?',
+                question: '일차방정식 2x + 6 = 14 의 해(x의 값)를 구하세요.',
                 options: [],
                 answer: '4',
-                hint: '리스트 안의 데이터 개수를 세어보세요.',
-                explanation: '리스트 내 요소가 4개이므로 `len()` 함수는 숫자 **4**를 반환합니다.'
+                hint: '양변에서 6을 뺀 뒤, 2로 나누어 보세요.',
+                steps: [
+                    '1단계: 6을 우변으로 이항합니다 → 2x = 14 - 6',
+                    '2단계: 계산하면 2x = 8 이 됩니다.',
+                    '3단계: 양변을 2로 나누면 x = 4 입니다.'
+                ]
             },
             {
-                id: 'py_02',
-                subject: '프로그래밍',
-                subtopic: 'Python 리스트 메서드',
-                difficulty: '보통',
-                type: '주관식',
-                question: 'Python 리스트의 맨 마지막에 새로운 요소를 추가할 때 사용하는 메서드 이름은?',
-                options: [],
-                answer: 'append',
-                hint: 'a로 시작하는 영문 소문자 메서드명입니다.',
-                explanation: '리스트 맨 뒤에 값을 추가할 때는 `list.append(value)` 메서드를 사용합니다.'
-            },
-            {
-                id: 'py_03',
-                subject: '프로그래밍',
-                subtopic: 'Python range 함수',
-                difficulty: '어려움',
+                id: 'm_kor_1',
+                grade: '중등',
+                gradeDetail: '중2',
+                subject: '국어',
+                subtopic: '문학 수사법',
                 type: '객관식',
-                question: 'Python에서 `list(range(1, 5))` 실행 시 생성되는 리스트의 값으로 올바른 것은?',
-                options: ['1) [1, 2, 3, 4, 5]', '2) [1, 2, 3, 4]', '3) [0, 1, 2, 3, 4]', '4) [2, 3, 4, 5]'],
-                answer: '2) [1, 2, 3, 4]',
-                hint: '`range(start, stop)`에서 `stop` 값은 포함되지 않습니다.',
-                explanation: '`range(1, 5)`는 1부터 시작하여 5 미만(4까지)의 정수를 생성하므로 `[1, 2, 3, 4]` 가 됩니다.'
+                question: '문장 "내 마음은 호수요"에 쓰인 비유법은 무엇인가요?',
+                options: ['1) 직유법', '2) 은유법', '3) 의인법', '4) 풍류법'],
+                answer: '2) 은유법',
+                hint: '"A는 B이다"의 형태로 표현하는 비유법입니다.',
+                steps: [
+                    '1단계: ~처럼, ~같이 등의 연결어를 쓰는 것은 직유법입니다.',
+                    '2단계: 연결어 없이 "A는 B이다" 형태로 원관념과 보조관념을 은밀히 비유하는 것은 은유법입니다.',
+                    '3단계: 따라서 정답은 은유법입니다.'
+                ]
+            },
+            {
+                id: 'm_sci_1',
+                grade: '중등',
+                gradeDetail: '중2~3',
+                subject: '과학',
+                subtopic: '원소 기호',
+                type: '주관식',
+                question: '물(H₂O)을 구성하는 원소 중 "산소"의 원소 기호 알파벳 한 글자는 무엇인가요?',
+                options: [],
+                answer: 'O',
+                hint: 'Oxygen의 첫 글자입니다.',
+                steps: [
+                    '1단계: 수소의 원소 기호는 H 입니다.',
+                    '2단계: 산소의 원소 기호는 O 입니다.',
+                    '3단계: 따라서 정답은 O 입니다.'
+                ]
+            },
+            {
+                id: 'm_soc_1',
+                grade: '중등',
+                gradeDetail: '중2~3',
+                subject: '사회/한국사',
+                subtopic: '조선 시대 제도',
+                type: '객관식',
+                question: '조선 시대 세종대왕이 학문 연구 및 인재 양성을 위해 설치한 기관은?',
+                options: ['1) 집현전', '2) 규장각', '3) 성균관', '4) 서원'],
+                answer: '1) 집현전',
+                hint: '훈민정음을 창제하는 데 기여한 국립 연구 기관입니다.',
+                steps: [
+                    '1단계: 세종대왕은 학문 연구를 위해 집현전을 확대 개편했습니다.',
+                    '2단계: 정조 시대에 만든 것은 규장각입니다.',
+                    '3단계: 정답은 집현전입니다.'
+                ]
+            },
+            {
+                id: 'm_eng_1',
+                grade: '중등',
+                gradeDetail: '중3',
+                subject: '영어',
+                subtopic: '관계대명사',
+                type: '객관식',
+                question: '빈칸에 알맞은 관계대명사를 고르세요.<br>"I have a friend ____ lives in London."',
+                options: ['1) which', '2) who', '3) whose', '4) whom'],
+                answer: '2) who',
+                hint: '선행사가 사람(friend)이고 주어 역할을 합니다.',
+                steps: [
+                    '1단계: 선행사 a friend는 사람입니다.',
+                    '2단계: 관계대명사절 뒤에 동사 lives가 오므로 주격 관계대명사가 필요합니다.',
+                    '3단계: 사람이면서 주격인 관계대명사는 who입니다.'
+                ]
+            },
+
+            // 고등 문제
+            {
+                id: 'h_math_1',
+                grade: '고등',
+                gradeDetail: '고1',
+                subject: '수학',
+                subtopic: '다항식의 연산',
+                type: '객관식',
+                question: '다항식 (x + 3)(x - 2) 를 전개한 식은 무엇인가요?',
+                options: ['1) x² + x - 6', '2) x² - x - 6', '3) x² + 5x - 6', '4) x² - 5x + 6'],
+                answer: '1) x² + x - 6',
+                hint: '전개 공식을 이용해 하나씩 곱해 보세요.',
+                steps: [
+                    '1단계: (x+3)(x-2) = x·x + x·(-2) + 3·x + 3·(-2)',
+                    '2단계: 계산하면 x² - 2x + 3x - 6 가 됩니다.',
+                    '3단계: 동류항을 정리하면 x² + x - 6 이므로 1번이 정답입니다.'
+                ]
+            },
+            {
+                id: 'h_math_2',
+                grade: '고등',
+                gradeDetail: '고2~3',
+                subject: '수학',
+                subtopic: '미분법',
+                type: '주관식',
+                question: '함수 f(x) = 3x² + 4x - 5 의 도함수 f\'(x)를 구했을 때 x의 계수는 얼마인가요?',
+                options: [],
+                answer: '6',
+                hint: '(xⁿ)\' = n·xⁿ⁻¹ 공식을 적용하세요.',
+                steps: [
+                    '1단계: 3x² 을 미분하면 3 · 2x = 6x 가 됩니다.',
+                    '2단계: 4x 를 미분하면 4 가 되고, 상수는 0이 됩니다.',
+                    '3단계: 따라서 f\'(x) = 6x + 4 이며, x의 계수는 6 입니다.'
+                ]
+            },
+            {
+                id: 'h_kor_1',
+                grade: '고등',
+                gradeDetail: '고1~2',
+                subject: '국어',
+                subtopic: '고전 시가',
+                type: '객관식',
+                question: '고려 가요 "가시리"에 나타나는 핵심 정서로 가장 적절한 것은?',
+                options: ['1) 이별의 한과 체념', '2) 국가에 대한 충성', '3) 자연에 대한 예찬', '4) 고향에 대한 그리움'],
+                answer: '1) 이별의 한과 체념',
+                hint: '"가시리 가시리잇고 나난 바리고 가시리잇고" 의 구절을 떠올려 보세요.',
+                steps: [
+                    '1단계: 가시리는 떠나가는 임을 원망하면서도 보내줄 수밖에 없는 이별의 정한을 다룹니다.',
+                    '2단계: 따라서 핵심 정서는 "이별의 한과 체념"입니다.'
+                ]
+            },
+            {
+                id: 'h_sci_1',
+                grade: '고등',
+                gradeDetail: '고1~2',
+                subject: '과학',
+                subtopic: '물리학 역학',
+                type: '주관식',
+                question: '질량이 4kg인 물체에 20N의 힘을 가할 때, 물체의 가속도(m/s²)는 얼마인가요?',
+                options: [],
+                answer: '5',
+                hint: '가속도 a = 힘(F) / 질량(m) 공식을 활용하세요.',
+                steps: [
+                    '1단계: 뉴턴 운동 제2법칙 F = ma 공식입니다.',
+                    '2단계: a = F / m 이므로 20N / 4kg 을 계산합니다.',
+                    '3단계: 가속도는 5 m/s² 입니다.'
+                ]
+            },
+            {
+                id: 'h_eng_1',
+                grade: '고등',
+                gradeDetail: '고2~3',
+                subject: '영어',
+                subtopic: '수능 어휘',
+                type: '객관식',
+                question: '단어 "significant"의 뜻으로 가장 적절한 것은 무엇인가요?',
+                options: ['1) 사소한', '2) 중요한, 상당한', '3) 일시적인', '4) 위험한'],
+                answer: '2) 중요한, 상당한',
+                hint: '수능 독해에서 무언가의 큰 의미나 중요성을 나타낼 때 사용됩니다.',
+                steps: [
+                    '1단계: significant는 "중요한", "상당한"이라는 의미를 가진 형용사입니다.',
+                    '2단계: 사소한 = trivial, 일시적인 = temporary, 위험한 = dangerous',
+                    '3단계: 정답은 2번입니다.'
+                ]
             }
         ];
 
-        const APP_STATE = {
-            selectedSubject: '수학',
-            difficulty: '보통',
-            questionType: '전체',
+        /* 상태 관리 변수 */
+        let state = {
+            currentGrade: '전체',
+            currentSubject: '전체',
+            total: 0,
+            correct: 0,
             attachedImage: null,
-            attachedLink: null,
-            stats: { total: 0, correct: 0 },
-            currentActiveQuizId: null
+            attachedLink: null
         };
 
-        const STATS_STORAGE_KEY = 'quiz_bank_stats_v2';
+        function setGradeFilter(grade, btnElement) {
+            state.currentGrade = grade;
+            const buttons = document.querySelectorAll('#grade-filter-group .filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
 
-        const DOM = {
-            sidebar: document.getElementById('sidebar'),
-            toggleSidebarBtn: document.getElementById('toggleSidebarBtn'),
-            closeSidebarBtn: document.getElementById('closeSidebarBtn'),
-            quickSubjectList: document.getElementById('quickSubjectList'),
-            fetchQuizBtn: document.getElementById('fetchQuizBtn'),
-            subjectBadgeText: document.getElementById('subjectBadgeText'),
-            diffBadge: document.getElementById('diffBadge'),
-            statTotal: document.getElementById('statTotal'),
-            statCorrect: document.getElementById('statCorrect'),
-            statAccuracy: document.getElementById('statAccuracy'),
-            resetStatsBtn: document.getElementById('resetStatsBtn'),
-            feedContainer: document.getElementById('feedContainer'),
-            welcomeCard: document.getElementById('welcomeCard'),
-            messagesList: document.getElementById('messagesList'),
-            clearChatBtn: document.getElementById('clearChatBtn'),
-            chatForm: document.getElementById('chatForm'),
-            userInput: document.getElementById('userInput'),
-            sendBtn: document.getElementById('sendBtn'),
-            imageFileInput: document.getElementById('imageFileInput'),
-            attachImgBtn: document.getElementById('attachImgBtn'),
-            attachLinkBtn: document.getElementById('attachLinkBtn'),
-            attachmentPreviewBar: document.getElementById('attachmentPreviewBar'),
-            imgPreviewTag: document.getElementById('imgPreviewTag'),
-            imgPreviewThumb: document.getElementById('imgPreviewThumb'),
-            removeImgBtn: document.getElementById('removeImgBtn'),
-            linkPreviewTag: document.getElementById('linkPreviewTag'),
-            linkPreviewText: document.getElementById('linkPreviewText'),
-            removeLinkBtn: document.getElementById('removeLinkBtn'),
-            linkModal: document.getElementById('linkModal'),
-            linkUrlInput: document.getElementById('linkUrlInput'),
-            closeLinkModalBtn: document.getElementById('closeLinkModalBtn'),
-            confirmLinkBtn: document.getElementById('confirmLinkBtn')
-        };
+        function setSubjectFilter(subject, btnElement) {
+            state.currentSubject = subject;
+            const buttons = document.querySelectorAll('#subject-filter-group .filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            initStats();
-            setupEventListeners();
-            renderMathAndMarkdown();
-        });
+        function triggerQuickQuiz(grade, subject) {
+            appendUserBubble(`[${grade}] ${subject} 맞춤 문제를 보여주세요.`);
+            setTimeout(() => {
+                fetchAndDisplayQuiz(grade, subject);
+            }, 250);
+        }
 
-        function initStats() {
-            try {
-                const savedStats = JSON.parse(localStorage.getItem(STATS_STORAGE_KEY));
-                if (savedStats) APP_STATE.stats = savedStats;
-            } catch(e) {
-                APP_STATE.stats = { total: 0, correct: 0 };
+        function handleSend(e) {
+            e.preventDefault();
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if (!text && !state.attachedImage && !state.attachedLink) return;
+
+            appendUserBubble(text, state.attachedImage, state.attachedLink);
+            input.value = '';
+
+            const lower = text.toLowerCase();
+            let matchedGrade = state.currentGrade;
+            let matchedSubject = state.currentSubject;
+
+            if (lower.includes('초등') || lower.includes('초1') || lower.includes('초2') || lower.includes('초3') || lower.includes('초4') || lower.includes('초5') || lower.includes('초6')) matchedGrade = '초등';
+            else if (lower.includes('중등') || lower.includes('중1') || lower.includes('중2') || lower.includes('중3')) matchedGrade = '중등';
+            else if (lower.includes('고등') || lower.includes('고1') || lower.includes('고2') || lower.includes('고3')) matchedGrade = '고등';
+
+            if (lower.includes('국어')) matchedSubject = '국어';
+            else if (lower.includes('수학')) matchedSubject = '수학';
+            else if (lower.includes('과학')) matchedSubject = '과학';
+            else if (lower.includes('사회') || lower.includes('역사') || lower.includes('한국사')) matchedSubject = '사회/한국사';
+            else if (lower.includes('영어')) matchedSubject = '영어';
+
+            setTimeout(() => {
+                fetchAndDisplayQuiz(matchedGrade, matchedSubject);
+            }, 300);
+
+            clearImageAttachment();
+            clearLinkAttachment();
+        }
+
+        function fetchAndDisplayQuiz(grade, subject) {
+            let filtered = QUIZ_DATABASE;
+            if (grade !== '전체') {
+                filtered = filtered.filter(q => q.grade === grade);
             }
-            updateStatsUI();
+            if (subject !== '전체') {
+                filtered = filtered.filter(q => q.subject === subject);
+            }
+
+            if (filtered.length === 0) {
+                filtered = QUIZ_DATABASE;
+            }
+
+            const randomQuiz = filtered[Math.floor(Math.random() * filtered.length)];
+            renderQuizCard(randomQuiz);
         }
 
-        function updateStatsUI() {
-            DOM.statTotal.textContent = APP_STATE.stats.total;
-            DOM.statCorrect.textContent = APP_STATE.stats.correct;
-            const accuracy = APP_STATE.stats.total > 0 
-                ? Math.round((APP_STATE.stats.correct / APP_STATE.stats.total) * 100) 
-                : 0;
-            DOM.statAccuracy.textContent = `${accuracy}%`;
-            localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(APP_STATE.stats));
+        function appendUserBubble(text, imgData, linkData) {
+            const feed = document.getElementById('feed-container');
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble-user';
+            
+            let html = '';
+            if (imgData) {
+                html += `<img src="${imgData}" alt="사용자가 전송한 이미지" style="max-width:200px; display:block; margin-bottom:6px; border-radius:6px;">`;
+            }
+            if (linkData) {
+                html += `<div style="font-size:11px; margin-bottom:4px;">🔗 <a href="${linkData}" target="_blank" style="color:#ffffff; text-decoration:underline;">${linkData}</a></div>`;
+            }
+            if (text) {
+                html += `<div>${escapeHtml(text)}</div>`;
+            }
+
+            bubble.innerHTML = html;
+            feed.appendChild(bubble);
+            feed.scrollTop = feed.scrollHeight;
         }
 
-        function setupEventListeners() {
-            // Mobile Sidebar Toggle
-            DOM.toggleSidebarBtn?.addEventListener('click', () => DOM.sidebar.classList.remove('-translate-x-full'));
-            DOM.closeSidebarBtn?.addEventListener('click', () => DOM.sidebar.classList.add('-translate-x-full'));
+        function appendBotBubble(text) {
+            const feed = document.getElementById('feed-container');
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble-bot';
+            bubble.innerHTML = text;
+            feed.appendChild(bubble);
+            feed.scrollTop = feed.scrollHeight;
+        }
 
-            // Subject Selector Buttons
-            DOM.quickSubjectList?.querySelectorAll('.subject-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const subject = btn.getAttribute('data-subject');
-                    APP_STATE.selectedSubject = subject;
-                    DOM.subjectBadgeText.textContent = `${subject} 맞춤 문제 출제`;
-                    fetchAndDisplayQuiz({ subject: subject, difficulty: APP_STATE.difficulty, type: APP_STATE.questionType });
-                    if (window.innerWidth < 768) DOM.sidebar.classList.add('-translate-x-full');
-                });
-            });
+        function renderQuizCard(quiz) {
+            const feed = document.getElementById('feed-container');
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            const cardId = 'quiz_' + Date.now();
 
-            // Difficulty Buttons
-            document.querySelectorAll('.diff-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.diff-btn').forEach(b => {
-                        b.className = 'diff-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50';
-                    });
-                    btn.className = 'diff-btn py-1.5 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-bold text-center shadow-xs';
-                    APP_STATE.difficulty = btn.getAttribute('data-diff');
-                    DOM.diffBadge.textContent = `난이도: ${APP_STATE.difficulty}`;
-                });
-            });
+            let optionsHtml = '';
+            if (quiz.type === '객관식') {
+                optionsHtml = quiz.options.map(opt => 
+                    `<button class="option-btn" onclick="selectOption(this, '${cardId}')">${opt}</button>`
+                ).join('');
+            } else {
+                optionsHtml = `<input type="text" id="${cardId}_text" class="text-answer-input" placeholder="정답을 입력하세요 (예: 숫자 또는 단어)...">`;
+            }
 
-            // Type Buttons
-            document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.type-btn').forEach(b => {
-                        b.className = 'type-btn py-1.5 rounded-lg border border-blue-200 bg-white text-slate-700 font-medium transition text-center hover:bg-blue-50';
-                    });
-                    btn.className = 'type-btn py-1.5 rounded-lg border-2 border-blue-600 bg-blue-600 text-white font-bold text-center shadow-xs';
-                    APP_STATE.questionType = btn.getAttribute('data-type');
-                });
-            });
+            const stepsHtml = quiz.steps.map(s => `<div>${s}</div>`).join('');
 
-            // Fetch Quiz Button Click
-            DOM.fetchQuizBtn?.addEventListener('click', () => {
-                fetchAndDisplayQuiz({
-                    subject: APP_STATE.selectedSubject,
-                    difficulty: APP_STATE.difficulty,
-                    type: APP_STATE.questionType
-                });
-                if (window.innerWidth < 768) DOM.sidebar.classList.add('-translate-x-full');
-            });
+            card.innerHTML = `
+                <div class="quiz-header">
+                    <span class="quiz-topic">[${quiz.gradeDetail} ${quiz.subject}] ${quiz.subtopic}</span>
+                    <span class="badge badge-orange">${quiz.type}</span>
+                </div>
+                <div class="quiz-question">${quiz.question}</div>
+                <div id="${cardId}_options">${optionsHtml}</div>
+                <div class="action-row">
+                    <button class="hint-btn" onclick="toggleHint('${cardId}')">💡 힌트 보기</button>
+                    <button class="submit-btn" onclick="checkAnswer('${quiz.id}', '${cardId}')">채점하기</button>
+                </div>
+                <div id="${cardId}_hint" style="display:none; margin-top:8px; font-size:11px; color:#92400e; background:#fef3c7; padding:8px; border-radius:6px;">
+                    <b>힌트:</b> ${quiz.hint}
+                </div>
+                <div id="${cardId}_result" class="result-box" style="display:none;"></div>
+                <div id="${cardId}_steps" style="display:none; margin-top:8px; font-size:11px; background:#f1f5f9; padding:8px; border-radius:6px; color:#334155; line-height:1.6;">
+                    <b>단계별 해설:</b>
+                    ${stepsHtml}
+                </div>
+            `;
 
-            // Reset Stats
-            DOM.resetStatsBtn?.addEventListener('click', () => {
-                if (confirm('오늘의 학습 기록을 초기화하시겠습니까?')) {
-                    APP_STATE.stats = { total: 0, correct: 0 };
-                    updateStatsUI();
+            feed.appendChild(card);
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function selectOption(btn, cardId) {
+            const container = document.getElementById(cardId + '_options');
+            const btns = container.querySelectorAll('.option-btn');
+            btns.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function toggleHint(cardId) {
+            const hintBox = document.getElementById(cardId + '_hint');
+            hintBox.style.display = (hintBox.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function checkAnswer(quizId, cardId) {
+            const quiz = QUIZ_DATABASE.find(q => q.id === quizId);
+            const resultBox = document.getElementById(cardId + '_result');
+            const stepsBox = document.getElementById(cardId + '_steps');
+            let userAnswer = '';
+
+            if (quiz.type === '객관식') {
+                const selected = document.querySelector(`#${cardId}_options .option-btn.selected`);
+                if (!selected) {
+                    alert('보기를 먼저 선택해 주세요.');
+                    return;
                 }
-            });
-
-            // Clear Chat
-            DOM.clearChatBtn?.addEventListener('click', () => {
-                DOM.messagesList.innerHTML = '';
-                DOM.welcomeCard.classList.remove('hidden');
-            });
-
-            // Attach Image File
-            DOM.attachImgBtn?.addEventListener('click', () => DOM.imageFileInput.click());
-            DOM.imageFileInput?.addEventListener('change', handleImageUpload);
-            DOM.removeImgBtn?.addEventListener('click', clearImageAttachment);
-
-            // Attach Link
-            DOM.attachLinkBtn?.addEventListener('click', () => DOM.linkModal.classList.remove('hidden'));
-            DOM.closeLinkModalBtn?.addEventListener('click', () => DOM.linkModal.classList.add('hidden'));
-            DOM.confirmLinkBtn?.addEventListener('click', handleLinkAttach);
-            DOM.removeLinkBtn?.addEventListener('click', clearLinkAttachment);
-
-            // Textarea Auto Growth
-            DOM.userInput?.addEventListener('input', () => {
-                DOM.userInput.style.height = 'auto';
-                DOM.userInput.style.height = (DOM.userInput.scrollHeight) + 'px';
-            });
-
-            DOM.userInput?.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    DOM.chatForm.dispatchEvent(new Event('submit'));
+                userAnswer = selected.textContent;
+            } else {
+                const textInput = document.getElementById(`${cardId}_text`);
+                userAnswer = textInput.value.trim();
+                if (!userAnswer) {
+                    alert('정답을 입력해 주세요.');
+                    return;
                 }
-            });
+            }
 
-            // Submit Form
-            DOM.chatForm?.addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleUserChatSubmit();
-            });
+            state.total++;
+            let isCorrect = false;
 
-            // Quick Pills
-            document.querySelectorAll('.quick-prompt-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    DOM.userInput.value = btn.textContent.trim();
-                    DOM.userInput.focus();
-                });
-            });
+            if (quiz.type === '객관식') {
+                isCorrect = userAnswer.includes(quiz.answer) || quiz.answer.includes(userAnswer.substring(0, 2));
+            } else {
+                isCorrect = userAnswer.toLowerCase().replace(/\s/g, '') === quiz.answer.toLowerCase().replace(/\s/g, '');
+            }
+
+            if (isCorrect) {
+                state.correct++;
+                resultBox.className = 'result-box result-correct';
+                resultBox.innerHTML = `<b>⭕ 정답입니다! 아주 훌륭합니다!</b>`;
+            } else {
+                resultBox.className = 'result-box result-wrong';
+                resultBox.innerHTML = `<b>❌ 아쉽게도 오답입니다.</b> (모범 정답: <b>${quiz.answer}</b>)`;
+            }
+
+            resultBox.style.display = 'block';
+            stepsBox.style.display = 'block';
+            updateStats();
         }
 
-        function handleImageUpload(e) {
+        function updateStats() {
+            document.getElementById('stat-total').textContent = state.total;
+            document.getElementById('stat-correct').textContent = state.correct;
+            const accuracy = state.total > 0 ? Math.round((state.correct / state.total) * 100) : 0;
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
+        }
+
+        function handleImageSelected(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(evt) {
-                APP_STATE.attachedImage = evt.target.result;
-                DOM.imgPreviewThumb.src = evt.target.result;
-                DOM.imgPreviewTag.classList.remove('hidden');
-                DOM.imgPreviewTag.classList.add('flex');
-                DOM.attachmentPreviewBar.classList.remove('hidden');
+                state.attachedImage = evt.target.result;
+                document.getElementById('preview-img').src = evt.target.result;
+                document.getElementById('img-preview-tag').style.display = 'inline-block';
+                document.getElementById('attachment-preview-area').style.display = 'flex';
             };
             reader.readAsDataURL(file);
         }
 
         function clearImageAttachment() {
-            APP_STATE.attachedImage = null;
-            DOM.imageFileInput.value = '';
-            DOM.imgPreviewTag.classList.add('hidden');
-            DOM.imgPreviewTag.classList.remove('flex');
-            checkAttachmentBarEmpty();
+            state.attachedImage = null;
+            document.getElementById('image-file-input').value = '';
+            document.getElementById('img-preview-tag').style.display = 'none';
+            checkPreviewBar();
         }
 
-        function handleLinkAttach() {
-            const url = DOM.linkUrlInput.value.trim();
-            if (!url) return;
-            APP_STATE.attachedLink = url;
-            DOM.linkPreviewText.textContent = url;
-            DOM.linkPreviewTag.classList.remove('hidden');
-            DOM.linkPreviewTag.classList.add('flex');
-            DOM.attachmentPreviewBar.classList.remove('hidden');
-            DOM.linkUrlInput.value = '';
-            DOM.linkModal.classList.add('hidden');
+        function attachLinkPrompt() {
+            const url = prompt('참고할 웹 사이트 URL 주소를 입력하세요:', 'https://');
+            if (url && url !== 'https://') {
+                state.attachedLink = url;
+                document.getElementById('preview-link-url').textContent = url;
+                document.getElementById('link-preview-tag').style.display = 'inline-block';
+                document.getElementById('attachment-preview-area').style.display = 'flex';
+            }
         }
 
         function clearLinkAttachment() {
-            APP_STATE.attachedLink = null;
-            DOM.linkPreviewTag.classList.add('hidden');
-            DOM.linkPreviewTag.classList.remove('flex');
-            checkAttachmentBarEmpty();
+            state.attachedLink = null;
+            document.getElementById('link-preview-tag').style.display = 'none';
+            checkPreviewBar();
         }
 
-        function checkAttachmentBarEmpty() {
-            if (!APP_STATE.attachedImage && !APP_STATE.attachedLink) {
-                DOM.attachmentPreviewBar.classList.add('hidden');
+        function checkPreviewBar() {
+            if (!state.attachedImage && !state.attachedLink) {
+                document.getElementById('attachment-preview-area').style.display = 'none';
             }
         }
 
-        function fetchAndDisplayQuiz(filterCriteria) {
-            DOM.welcomeCard.classList.add('hidden');
-
-            let matchedList = QUIZ_BANK.filter(q => {
-                let matchSubject = !filterCriteria.subject || q.subject.includes(filterCriteria.subject);
-                let matchDiff = !filterCriteria.difficulty || q.difficulty === filterCriteria.difficulty;
-                let matchType = !filterCriteria.type || filterCriteria.type === '전체' || q.type === filterCriteria.type;
-                return matchSubject && matchDiff && matchType;
-            });
-
-            // Fallback if no exact match: relax difficulty/type constraint
-            if (matchedList.length === 0) {
-                matchedList = QUIZ_BANK.filter(q => q.subject.includes(filterCriteria.subject || '수학'));
-            }
-
-            if (matchedList.length === 0) matchedList = QUIZ_BANK;
-
-            // Select a random question from matched
-            const quiz = matchedList[Math.floor(Math.random() * matchedList.length)];
-            APP_STATE.currentActiveQuizId = quiz.id;
-
-            // Append Bot Message Header
-            appendBotBubble(`**[${quiz.subject}] ${quiz.subtopic}** 단원의 문제가 출제되었습니다! 아래 문제를 읽고 정답을 맞춰보세요.`);
-            renderQuizCard(quiz);
-        }
-
-        function renderQuizCard(quiz) {
-            const cardId = 'quiz_' + Date.now();
-            const cardEl = document.createElement('div');
-            cardEl.className = 'bg-white rounded-2xl border border-amber-200 shadow-md p-5 space-y-4 animate-pop max-w-2xl mx-auto';
-            cardEl.id = cardId;
-
-            let optionsHtml = '';
-            if (quiz.type === '객관식' && Array.isArray(quiz.options) && quiz.options.length > 0) {
-                optionsHtml = `
-                    <div class="grid grid-cols-1 gap-2 pt-2">
-                        ${quiz.options.map((opt, idx) => `
-                            <button data-opt-idx="${idx}" class="quiz-option-btn text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 text-xs sm:text-sm font-medium text-slate-700 transition flex items-center justify-between group">
-                                <span>${opt}</span>
-                                <i class="fa-regular fa-circle text-slate-300 group-hover:text-blue-500 transition"></i>
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
-            } else {
-                optionsHtml = `
-                    <div class="pt-2">
-                        <textarea id="${cardId}_textAns" rows="2" placeholder="정답을 입력하세요... (예: 5, 장영실, x^2-2x-3=0)" class="w-full p-3 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-none custom-scrollbar"></textarea>
-                    </div>
-                `;
-            }
-
-            cardEl.innerHTML = `
-                <!-- Quiz Card Header -->
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <div class="flex items-center space-x-2">
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800">
-                            ${quiz.type}
-                        </span>
-                        <h3 class="font-bold text-slate-800 text-sm sm:text-base">${quiz.subtopic}</h3>
-                    </div>
-                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">
-                        ${quiz.difficulty}
-                    </span>
-                </div>
-
-                <!-- Question Text -->
-                <div class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium prose max-w-none">
-                    ${marked.parse(quiz.question)}
-                </div>
-
-                <!-- Options / Text Input -->
-                ${optionsHtml}
-
-                <!-- Action Bar -->
-                <div class="flex items-center justify-between gap-2 pt-3 border-t border-slate-100">
-                    <button id="${cardId}_hintBtn" class="px-3 py-1.5 rounded-xl border border-amber-200 bg-amber-50 text-amber-900 hover:bg-amber-100 text-xs font-semibold transition flex items-center gap-1">
-                        <i class="fa-solid fa-lightbulb text-amber-500"></i> 힌트 보기
-                    </button>
-
-                    <button id="${cardId}_submitBtn" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-xs text-xs transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-check"></i> 정답 채점하기
-                    </button>
-                </div>
-
-                <!-- Hint Drawer -->
-                <div id="${cardId}_hintBox" class="hidden p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed">
-                    <span class="font-bold flex items-center gap-1 mb-1 text-amber-800">
-                        <i class="fa-solid fa-lightbulb"></i> 힌트
-                    </span>
-                    ${quiz.hint}
-                </div>
-
-                <!-- Result & Explanation Box -->
-                <div id="${cardId}_resultBox" class="hidden p-4 rounded-xl border space-y-3">
-                    <div id="${cardId}_resultTitle" class="font-extrabold text-sm flex items-center gap-2"></div>
-                    <div class="text-xs text-slate-700 bg-white/80 p-3 rounded-lg border border-slate-200">
-                        <span class="font-bold text-slate-800">모범 정답: </span>
-                        <span id="${cardId}_correctAnsText" class="text-blue-700 font-mono font-bold"></span>
-                    </div>
-                    <div class="text-xs text-slate-700 leading-relaxed prose max-w-none pt-1">
-                        <span class="font-bold text-slate-800 block mb-1">💡 상세 단계별 해설:</span>
-                        <div id="${cardId}_expText"></div>
-                    </div>
-                </div>
-            `;
-
-            DOM.messagesList.appendChild(cardEl);
-            scrollToBottom();
-            renderMathAndMarkdown();
-
-            let selectedOptionText = null;
-
-            if (quiz.type === '객관식') {
-                const optBtns = cardEl.querySelectorAll('.quiz-option-btn');
-                optBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        optBtns.forEach(b => {
-                            b.className = 'quiz-option-btn text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 text-xs sm:text-sm font-medium text-slate-700 transition flex items-center justify-between group';
-                            b.querySelector('i').className = 'fa-regular fa-circle text-slate-300 group-hover:text-blue-500 transition';
-                        });
-                        btn.className = 'quiz-option-btn text-left p-3 rounded-xl border-2 border-blue-600 bg-blue-50 text-xs sm:text-sm font-bold text-blue-900 transition flex items-center justify-between';
-                        btn.querySelector('i').className = 'fa-solid fa-circle-check text-blue-600 transition';
-                        selectedOptionText = quiz.options[parseInt(btn.getAttribute('data-opt-idx'))];
-                    });
-                });
-            }
-
-            // Hint Toggle
-            document.getElementById(`${cardId}_hintBtn`).addEventListener('click', () => {
-                document.getElementById(`${cardId}_hintBox`).classList.toggle('hidden');
-            });
-
-            // Submit Button
-            document.getElementById(`${cardId}_submitBtn`).addEventListener('click', () => {
-                let userAnswer = '';
-                if (quiz.type === '객관식') {
-                    if (!selectedOptionText) {
-                        alert('보기 중 하나를 선택 후 채점하기를 눌러주세요.');
-                        return;
-                    }
-                    userAnswer = selectedOptionText;
-                } else {
-                    const txt = document.getElementById(`${cardId}_textAns`).value.trim();
-                    if (!txt) {
-                        alert('정답을 입력해주세요.');
-                        return;
-                    }
-                    userAnswer = txt;
-                }
-                evaluateAnswer(quiz, userAnswer, cardId);
-            });
-        }
-
-        function evaluateAnswer(quiz, userAnswer, cardId) {
-            const resultBox = document.getElementById(`${cardId}_resultBox`);
-            const resultTitle = document.getElementById(`${cardId}_resultTitle`);
-            const correctAnsText = document.getElementById(`${cardId}_correctAnsText`);
-            const expText = document.getElementById(`${cardId}_expText`);
-
-            let isCorrect = false;
-
-            if (quiz.type === '객관식') {
-                isCorrect = userAnswer.trim().includes(quiz.answer.trim()) || quiz.answer.trim().includes(userAnswer.trim().substring(0, 2));
-            } else {
-                const cleanUser = userAnswer.replace(/\s+/g, '').toLowerCase();
-                const cleanAns = quiz.answer.replace(/\s+/g, '').toLowerCase();
-                isCorrect = cleanUser === cleanAns || cleanUser.includes(cleanAns) || cleanAns.includes(cleanUser);
-            }
-
-            APP_STATE.stats.total += 1;
-
-            if (isCorrect) {
-                APP_STATE.stats.correct += 1;
-                resultBox.className = 'p-4 rounded-xl border border-emerald-300 bg-emerald-50 space-y-3';
-                resultTitle.className = 'font-extrabold text-sm flex items-center gap-2 text-emerald-800';
-                resultTitle.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> 정답입니다! 아주 잘하셨습니다! 🎉';
-                
-                try {
-                    confetti({ particleCount: 60, spread: 55, origin: { y: 0.7 } });
-                } catch(e){}
-            } else {
-                resultBox.className = 'p-4 rounded-xl border border-red-300 bg-red-50 space-y-3';
-                resultTitle.className = 'font-extrabold text-sm flex items-center gap-2 text-red-800';
-                resultTitle.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-600 text-lg"></i> 아쉽게도 오답입니다. 해설을 참고하여 복습해보세요.';
-            }
-
-            correctAnsText.textContent = quiz.answer;
-            expText.innerHTML = quiz.explanation;
-            resultBox.classList.remove('hidden');
-
-            updateStatsUI();
-            scrollToBottom();
-            renderMathAndMarkdown();
-        }
-
-        function handleUserChatSubmit() {
-            const text = DOM.userInput.value.trim();
-            if (!text && !APP_STATE.attachedImage && !APP_STATE.attachedLink) return;
-
-            DOM.welcomeCard.classList.add('hidden');
-
-            // Append User Chat Bubble
-            appendUserBubble(text, APP_STATE.attachedImage, APP_STATE.attachedLink);
-
-            // Clear Input
-            DOM.userInput.value = '';
-            DOM.userInput.style.height = 'auto';
-            clearImageAttachment();
-            clearLinkAttachment();
-
-            // Smart Keyword Analysis for Quiz Retrieval
-            setTimeout(() => {
-                const lower = text.toLowerCase();
-
-                let detectedSubject = null;
-                if (lower.includes('수학') || lower.includes('방정식')) detectedSubject = '수학';
-                else if (lower.includes('영어') || lower.includes('관계대명사')) detectedSubject = '영어';
-                else if (lower.includes('한국사') || lower.includes('세종') || lower.includes('조선')) detectedSubject = '한국사';
-                else if (lower.includes('과학') || lower.includes('뉴턴') || lower.includes('물리')) detectedSubject = '과학';
-                else if (lower.includes('프로그래밍') || lower.includes('파이썬') || lower.includes('python')) detectedSubject = '프로그래밍';
-
-                let detectedDiff = null;
-                if (lower.includes('쉬움') || lower.includes('쉬운')) detectedDiff = '쉬움';
-                else if (lower.includes('보통')) detectedDiff = '보통';
-                else if (lower.includes('어려움') || lower.includes('어려운')) detectedDiff = '어려움';
-
-                let detectedType = null;
-                if (lower.includes('객관식')) detectedType = '객관식';
-                else if (lower.includes('주관식')) detectedType = '주관식';
-
-                if (detectedSubject || lower.includes('문제') || lower.includes('풀어볼래') || lower.includes('출제')) {
-                    const targetSub = detectedSubject || APP_STATE.selectedSubject;
-                    const targetDiff = detectedDiff || APP_STATE.difficulty;
-                    const targetType = detectedType || APP_STATE.questionType;
-
-                    APP_STATE.selectedSubject = targetSub;
-                    DOM.subjectBadgeText.textContent = `${targetSub} 맞춤 문제 출제`;
-
-                    fetchAndDisplayQuiz({ subject: targetSub, difficulty: targetDiff, type: targetType });
-                } else {
-                    // Friendly Tutor Answer Guidance
-                    appendBotBubble(`요청하신 내용("**${escapeHtml(text)}**")을 잘 확인했습니다!\n\n관련 단원의 문제를 풀고 싶으시면 사이드바 버튼이나 **"수학 문제 줘"**, **"한국사 문제 줘"** 와 같이 입력해보세요.`);
-                }
-            }, 300);
-        }
-
-        function appendUserBubble(text, imgUrl, linkUrl) {
-            const msgEl = document.createElement('div');
-            msgEl.className = 'flex justify-end gap-3 animate-pop';
-            
-            let imgHtml = imgUrl ? `<img src="${imgUrl}" class="max-w-xs max-h-48 rounded-xl border border-slate-300 object-cover mb-2 shadow-xs">` : '';
-            let linkHtml = linkUrl ? `<div class="text-xs text-blue-900 bg-blue-100 p-2 rounded-lg border border-blue-300 mb-2 truncate max-w-xs"><i class="fa-solid fa-link mr-1"></i> ${linkUrl}</div>` : '';
-
-            msgEl.innerHTML = `
-                <div class="max-w-[85%] sm:max-w-md bg-blue-600 text-white rounded-2xl rounded-tr-xs p-3.5 shadow-sm space-y-1">
-                    ${imgHtml}
-                    ${linkHtml}
-                    ${text ? `<div class="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-medium">${escapeHtml(text)}</div>` : ''}
-                </div>
-            `;
-            DOM.messagesList.appendChild(msgEl);
-            scrollToBottom();
-        }
-
-        function appendBotBubble(markdownText) {
-            const msgEl = document.createElement('div');
-            msgEl.className = 'flex gap-3 items-start animate-pop max-w-2xl mx-auto';
-
-            msgEl.innerHTML = `
-                <div class="w-8 h-8 rounded-xl bg-amber-200 text-amber-900 flex items-center justify-center font-bold flex-shrink-0 text-sm border border-amber-300 shadow-2xs">
-                    <i class="fa-solid fa-robot"></i>
-                </div>
-                <div class="flex-1 bg-white border border-amber-200 rounded-2xl rounded-tl-xs p-4 shadow-xs text-xs sm:text-sm text-slate-800 leading-relaxed prose max-w-none">
-                    ${marked.parse(markdownText)}
-                </div>
-            `;
-            DOM.messagesList.appendChild(msgEl);
-            scrollToBottom();
-            renderMathAndMarkdown();
-        }
-
-        function scrollToBottom() {
-            DOM.feedContainer.scrollTop = DOM.feedContainer.scrollHeight;
-        }
-
-        function renderMathAndMarkdown() {
-            if (window.renderMathInElement) {
-                try {
-                    renderMathInElement(document.body, {
-                        delimiters: [
-                            {left: '$$', right: '$$', display: true},
-                            {left: '$', right: '$', display: false},
-                            {left: '\\(', right: '\\)', display: false},
-                            {left: '\\[', right: '\\]', display: true}
-                        ],
-                        throwOnError: false
-                    });
-                } catch(e){}
-            }
+        function clearFeed() {
+            document.getElementById('feed-container').innerHTML = '';
+            appendBotBubble('대화가 초기화되었습니다. 풀어보고 싶은 학년과 과목을 선택하세요!');
         }
 
         function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
     </script>
-</body>
-</html>
