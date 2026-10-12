@@ -3,456 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공부 문제 풀이 (초1~고3 문제 은행)</title>
-    
-    <!-- 12. link 태그 (파비콘용 data URI) -->
-    <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgo=">
+    <title>CSS 스타일 비교 실습</title>
+    <!-- 아래 href의 파일명을 style1.css, style2.css, style3.css로 바꾸며 확인하세요 -->
+    <link rel="stylesheet" href="STYLE.css">
+</head>
+<body>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', '맑은 고딕', sans-serif;
-        }
+    <header>
+        <nav>
+            <div class="logo">CSS LAB</div>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="#">소개</a></li>
+                <li><a href="#">프로젝트</a></li>
+                <li><a href="#">연락처</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        body {
-            /* 1. background-color */
-            background-color: #f8fafc;
-            /* 4. height */
-            height: 100vh;
-            overflow: hidden;
-        }
+    <main>
+        <section class="hero">
+            <h1>하나의 HTML, 세 가지 스타일</h1>
+            <p>CSS 파일만 교체해도 웹페이지의 디자인과 분위기가 완전히 달라집니다.</p>
+            <div class="btn-group">
+                <button class="btn-primary">주요 버튼</button>
+                <button class="btn-secondary">보조 버튼</button>
+            </div>
+        </section>
 
-        /* 7. display (flex) 속성 필수 사용 */
-        .app-container {
-            display: flex;
-            /* 3. width */
-            width: 100%;
-            height: 100vh;
-        }
+        <section class="grid-container">
+            <article class="card">
+                <h2>1. 웹 표준 요소</h2>
+                <p>HTML은 구조를 담당하고, CSS는 <span>시각적 스타일</span>을 담당합니다.</p>
+                <blockquote>"디자인은 단순히 어떻게 보이고 느껴지는가가 아니라, 어떻게 작동하는가이다."</blockquote>
+                <h3>학습 목록</h3>
+                <ul>
+                    <li>HTML5 시맨틱 태그</li>
+                    <li>CSS3 스타일링 및 레이아웃</li>
+                    <li>반응형 웹 디자인 기본</li>
+                </ul>
+            </article>
 
-        /* 좌측 사이드바 (연한 파랑 #e6f0fa 및 #dbeafe) */
-        .sidebar {
-            width: 330px;
-            height: 100vh;
-            background-color: #e6f0fa;
-            /* 2. border */
-            border-right: 2px solid #bfdbfe;
-            /* 6. padding */
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
+            <article class="card">
+                <h2>2. 폼 & 데이터 표</h2>
+                <form onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="username">사용자 이름</label>
+                        <input type="text" id="username" placeholder="이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">구분</label>
+                        <select id="role">
+                            <option>학생</option>
+                            <option>강사</option>
+                        </select>
+                    </div>
+                </form>
 
-        /* 7. display (inline-block) 속성 필수 사용 */
-        .badge {
-            display: inline-block;
-            background-color: #2563eb;
-            color: #ffffff;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            /* 5. margin */
-            margin-left: 6px;
-        }
+                <table>
+                    <thead>
+                        <tr>
+                            <th>과목</th>
+                            <th>상태</th>
+                            <th>태그</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HTML</td>
+                            <td>완료</td>
+                            <td><span class="badge success">기본</span></td>
+                        </tr>
+                        <tr>
+                            <td>CSS</td>
+                            <td>진행 중</td>
+                            <td><span class="badge warning">스타일</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </section>
+    </main>
 
-        .badge-green {
-            background-color: #059669;
-        }
+    <footer>
+        <p>&copy; 2026 웹 프로그래밍 실습 페이지. All rights reserved.</p>
+    </footer>
 
-        .badge-orange {
-            background-color: #ea580c;
-        }
-
-        .section-title {
-            color: #1e3a8a;
-            font-size: 13px;
-            font-weight: bold;
-            margin: 14px 0 8px 0;
-            border-bottom: 1px solid #bfdbfe;
-            padding-bottom: 4px;
-        }
-
-        .desc-text {
-            font-size: 12px;
-            color: #334155;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 10px;
-        }
-
-        .filter-btn {
-            background-color: #ffffff;
-            border: 1px solid #93c5fd;
-            color: #1e293b;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background-color: #2563eb;
-            color: #ffffff;
-            border-color: #2563eb;
-        }
-
-        .subject-btn {
-            display: block;
-            width: 100%;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            background-color: #ffffff;
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-            color: #1e293b;
-            font-size: 12px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover {
-            background-color: #2563eb;
-            color: #ffffff;
-        }
-
-        /* 11. 표 스타일링 (table, tr, th, td) */
-        .stats-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 6px;
-        }
-
-        .stats-table th {
-            background-color: #bfdbfe;
-            color: #1e3a8a;
-            font-size: 11px;
-            padding: 6px;
-            text-align: center;
-        }
-
-        .stats-table td {
-            font-size: 13px;
-            font-weight: bold;
-            color: #0f172a;
-            padding: 6px;
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        /* 6, 7, 8. ul, ol, li 리스트 스타일 */
-        .guide-list {
-            padding-left: 18px;
-            font-size: 11px;
-            color: #475569;
-            margin-bottom: 8px;
-        }
-
-        .guide-list li {
-            margin-bottom: 3px;
-        }
-
-        /* 우측 메인 영역 (연한 노랑 #fffde7 / #fef9c3) */
-        .main-workspace {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #fffde7;
-        }
-
-        .workspace-header {
-            background-color: #fef08a;
-            border-bottom: 1px solid #fde047;
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .main-title {
-            font-size: 16px;
-            color: #713f12;
-            font-weight: bold;
-        }
-
-        .clear-btn {
-            background-color: #ffffff;
-            border: 1px solid #eab308;
-            color: #854d0e;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .clear-btn:hover {
-            background-color: #fef08a;
-        }
-
-        .feed-container {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .chat-bubble-user {
-            align-self: flex-end;
-            background-color: #3b82f6;
-            color: #ffffff;
-            padding: 10px 14px;
-            border-radius: 16px 16px 2px 16px;
-            max-width: 70%;
-            font-size: 13px;
-            line-height: 1.4;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .chat-bubble-bot {
-            align-self: flex-start;
-            background-color: #ffffff;
-            color: #1e293b;
-            border: 1px solid #fde047;
-            padding: 12px 16px;
-            border-radius: 16px 16px 16px 2px;
-            max-width: 80%;
-            font-size: 13px;
-            line-height: 1.5;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .quiz-card {
-            background-color: #ffffff;
-            border: 2px solid #facc15;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        }
-
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #fef08a;
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-        }
-
-        .quiz-topic {
-            font-size: 13px;
-            font-weight: bold;
-            color: #854d0e;
-        }
-
-        .quiz-question {
-            font-size: 13px;
-            color: #1e293b;
-            margin-bottom: 12px;
-            line-height: 1.5;
-            font-weight: 600;
-        }
-
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            background-color: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            text-align: left;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .option-btn:hover {
-            background-color: #eff6ff;
-            border-color: #3b82f6;
-        }
-
-        .option-btn.selected {
-            background-color: #dbeafe;
-            border-color: #2563eb;
-            font-weight: bold;
-            color: #1e40af;
-        }
-
-        .text-answer-input {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-
-        .action-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px dashed #e2e8f0;
-        }
-
-        .hint-btn {
-            background-color: #fef3c7;
-            border: 1px solid #fde047;
-            color: #92400e;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .submit-btn {
-            background-color: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: #1d4ed8;
-        }
-
-        .result-box {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .result-correct {
-            background-color: #dcfce7;
-            border: 1px solid #86efac;
-            color: #166534;
-        }
-
-        .result-wrong {
-            background-color: #fee2e2;
-            border: 1px solid #fca5a5;
-            color: #991b1b;
-        }
-
-        /* 하단 입력바 (와이어프레임 회색 배경 #e2e8f0) */
-        .bottom-bar {
-            background-color: #e2e8f0;
-            border-top: 1px solid #cbd5e1;
-            padding: 12px 20px;
-        }
-
-        .attachment-preview-area {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .preview-tag {
-            display: inline-block;
-            background-color: #ffffff;
-            border: 1px solid #94a3b8;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            color: #334155;
-        }
-
-        /* 10. img (alt 속성 필수 작성) */
-        .preview-img-tag {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            object-fit: cover;
-            border-radius: 4px;
-            vertical-align: middle;
-            margin-right: 4px;
-        }
-
-        .input-form {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #ffffff;
-            padding: 4px 8px 4px 14px;
-            border: 1px solid #94a3b8;
-            border-radius: 24px;
-        }
-
-        .tool-btn {
-            background: none;
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 2px 4px;
-            color: #64748b;
-        }
-
-        .tool-btn:hover {
-            color: #2563eb;
-        }
-
-        .chat-input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 13px;
-            padding: 6px;
-        }
-
-        /* 회색 라운드 바 우측의 파란색 원형 버튼 (#3b82f6) */
-        .send-btn {
-            width: 36px;
-            height: 36px;
-            background-color: #3b82f6;
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .send-btn:hover {
-            background-color: #2563eb;
-        }
-
-        /* 9. a (외부 링크 전용) */
-        .external-link {
-            color: #2563eb;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-    </style>
+</body>
+</html>
 </head>
 <body>
 
