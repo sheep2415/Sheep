@@ -1,4 +1,8 @@
-onst loginForm = document.querySelector("#loginForm");
+const id="Sheep";
+const pw="091018";
+
+
+const loginForm = document.querySelector("#loginForm");
 loginForm.onsubmit = function (e) {
   e.preventDefault(); // 페이지 새로고침 방지
 
@@ -12,8 +16,7 @@ loginForm.onsubmit = function (e) {
   }
 };
 
-
-
+//카운터
 let counter = document.querySelector("#counter");
 let number=0;
 let count_number = document.querySelector("#count_number");
@@ -23,7 +26,7 @@ counter.onclick=function()
   count_number.textContent=number+"번 클릭";
 }
 
-
+//색 바꾸기
 let text_message = document.querySelector('#text_message');
   text_message.onclick = function () {
     const r = Math.floor(Math.random()*256);
