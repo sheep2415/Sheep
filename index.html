@@ -111,13 +111,13 @@
             <p>풀고 싶은 과목이나 학년을 대화창에 입력하거나 좌측 버튼을 클릭하세요.</p>
         </div>
 
-        <!-- 📌 자바스크립트 실습 기능 3종 패널 (onclick 직접 연결) -->
+       <!-- 📌 자바스크립트 실습 기능 3종 패널 (새로고침 방지 type="button" 추가) -->
         <div class="practice-panel">
             <div class="practice-item">
                 <h3>1. 로그인</h3>
                 <input type="text" id="login-id" class="login-input" placeholder="아이디"><br>
                 <input type="password" id="login-pw" class="login-input" placeholder="비밀번호"><br>
-                <button class="action-btn" onclick="checkLogin()">로그인</button>
+                <button type="button" class="action-btn" onclick="checkLogin(event)">로그인</button>
                 <p id="login-msg" class="result-msg"></p>
             </div>
 
@@ -128,46 +128,10 @@
 
             <div class="practice-item">
                 <h3>3. 카운터</h3>
-                <button class="action-btn" onclick="increaseCounter()">counter</button>
+                <button type="button" class="action-btn" onclick="increaseCounter()">counter</button>
                 <span id="counter-count" class="count-text">0번 클릭</span>
             </div>
         </div>
-
-        <!-- 대화 스크롤 영역 -->
-        <div id="chat-container" class="chat-container">
-            <div class="message ai">
-                <div class="bubble">
-                    <strong>안녕하세요! 맞춤형 공부 문제 풀이 도우미입니다. 📚</strong><br><br>
-                    채팅창에 <strong>"초1 수학 문제 내줘"</strong>, <strong>"고3 미분 문제"</strong>, <strong>"중3 과학"</strong> 등을 입력하거나 왼쪽 메뉴를 선택해 보세요!
-                    <div class="guide-box">
-                        <strong>📌 이용 가이드</strong>
-                        <ol>
-                            <li>원하는 학년/과목을 검색합니다.</li>
-                            <li>제시되는 문제의 정답을 입력하거나 선택합니다.</li>
-                            <li>정답 여부와 상세 해설을 바로 확인합니다.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. 하단 고정 입력바 -->
-        <div class="bottom-bar-container">
-            <div id="preview-area" class="preview-area">
-                <img id="preview-img" class="preview-thumb" src="" alt="첨부 이미지 미리보기" style="display: none;">
-            </div>
-
-            <div class="bottom-bar">
-                <button class="icon-btn" onclick="triggerFileUpload()" title="사진 첨부">📷</button>
-                <button class="icon-btn" onclick="promptLinkInput()" title="링크 첨부">🔗</button>
-                <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
-                
-                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나 정답을 작성하세요..." onkeypress="handleKeyPress(event)">
-                
-                <button class="send-btn" onclick="sendMessage()" title="전송">➤</button>
-            </div>
-        </div>
-    </div>
 
     <!-- 자바스크립트 파일 연결 -->
     <script src="script.js"></script>
