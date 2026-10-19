@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 공부 문제 풀이 (초1~고3)</title>
-    <!-- 외부 라이브러리 없는 순수 CSS 연결 -->
+    <!-- CSS 분리 파일 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <!-- 💬 대화 및 문제 출력 스크롤 영역 -->
+        <!-- 대화 및 문제 스크롤 영역 -->
         <div id="chat-container" class="chat-container">
             <div class="message ai">
                 <div class="bubble">
@@ -151,7 +151,7 @@
             </div>
         </div>
 
-        <!-- 3. 하단 입력바 (항상 하단 고정) -->
+        <!-- 3. 하단 입력바 (화면 맨 밑 고정) -->
         <div class="bottom-bar-container">
             <div id="preview-area" class="preview-area">
                 <img id="preview-img" class="preview-thumb" src="" alt="첨부 이미지 미리보기" style="display: none;">
@@ -162,4 +162,14 @@
                 <button type="button" class="icon-btn" onclick="promptLinkInput()" title="링크 첨부">🔗</button>
                 <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
                 
-                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나
+                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나 정답을 작성하세요..." onkeypress="handleKeyPress(event)">
+                
+                <button type="button" class="send-btn" onclick="sendMessage()" title="전송">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS 분리 파일 연결 -->
+    <script src="script.js"></script>
+</body>
+</html>
