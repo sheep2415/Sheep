@@ -1,63 +1,40 @@
 /* ==========================================
-   script.js (로그인 검증 강화 및 오류 방지)
+   script.js (onclick 직접 호출 방식)
    ========================================== */
 
-// 타이밍 문제 없이 즉시 이벤트 연결하는 함수
-function initEvents() {
-    // 1. 로그인 기능 (아이디: Sheep / 비밀번호: 24152415)
-    const loginBtn = document.getElementById('login-btn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function() {
-            const idInput = document.getElementById('login-id');
-            const pwInput = document.getElementById('login-pw');
-            const msg = document.getElementById('login-msg');
+// 1. 로그인 확인 함수 (아이디: Sheep / 비번: 24152415)
+function checkLogin() {
+    const id = document.getElementById('login-id').value.trim();
+    const pw = document.getElementById('login-pw').value.trim();
+    const msg = document.getElementById('login-msg');
 
-            const id = idInput ? idInput.value.trim() : '';
-            const pw = pwInput ? pwInput.value.trim() : '';
-
-            // 아이디: Sheep, 비밀번호: 24152415 일치 확인
-            if (id === 'Sheep' && pw === '24152415') {
-                msg.style.color = '#16a34a'; // 초록색 글자
-                msg.innerText = '성공';
-            } else {
-                msg.style.color = '#dc2626'; // 빨간색 글자
-                msg.innerText = '실패';
-            }
-        });
-    }
-
-    // 2. 글자 색 바꾸기 기능
-    const colorText = document.getElementById('color-text');
-    if (colorText) {
-        const colors = ['#dc2626', '#2563eb', '#16a34a', '#9333ea', '#ea580c', '#000000'];
-        let colorIdx = 0;
-        colorText.addEventListener('click', function() {
-            colorIdx = (colorIdx + 1) % colors.length;
-            this.style.color = colors[colorIdx];
-        });
-    }
-
-    // 3. 카운터 기능
-    const counterBtn = document.getElementById('counter-btn');
-    if (counterBtn) {
-        let clickCount = 0;
-        counterBtn.addEventListener('click', function() {
-            clickCount++;
-            document.getElementById('counter-count').innerText = `${clickCount}번 클릭`;
-        });
+    if (id === 'Sheep' && pw === '24152415') {
+        msg.style.color = '#16a34a'; // 성공: 초록색
+        msg.innerText = '성공';
+    } else {
+        msg.style.color = '#dc2626'; // 실패: 빨간색
+        msg.innerText = '실패';
     }
 }
 
-// 문서 로드 상태와 상관없이 안전하게 실행
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initEvents);
-} else {
-    initEvents();
+// 2. 글자 색 바꾸기 함수
+const colors = ['#dc2626', '#2563eb', '#16a34a', '#9333ea', '#ea580c', '#000000'];
+let colorIdx = 0;
+function changeTextColor() {
+    colorIdx = (colorIdx + 1) % colors.length;
+    document.getElementById('color-text').style.color = colors[colorIdx];
+}
+
+// 3. 카운터 증가 함수
+let clickCount = 0;
+function increaseCounter() {
+    clickCount++;
+    document.getElementById('counter-count').innerText = clickCount + '번 클릭';
 }
 
 
 /* ==========================================
-   기존 문제 풀이 기능 (건들지 않음)
+   기존 공부 문제 풀이 최소 기능
    ========================================== */
 const quizBank = [
     { id: 1, grade: "ele1", subject: "math", question: "[초등 1학년 수학] 5 + 3 은 얼마일까요?", options: ["1) 6", "2) 7", "3) 8", "4) 9"], answer: "3", answerText: "8", explanation: "5에 3을 더하면 8입니다." },
