@@ -1,6 +1,10 @@
+// ==========================================
+// [추가] 로그인 / 카운터 / 색상변경 기능
+// ==========================================
 const id = "Sheep";
-const pw = "091018";
+const pw = "24152415";
 
+// 로그인
 const loginForm = document.querySelector("#loginForm");
 loginForm.onsubmit = function (e) {
   e.preventDefault(); // 페이지 새로고침 방지
@@ -25,10 +29,10 @@ counter.onclick = function () {
 };
 
 // 색 바꾸기
-let text_message = document.querySelector("#text_message");
+let text_message = document.querySelector('#text_message');
 text_message.onclick = function () {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
-  text_message.style.color = "rgb(" + r + "," + g + "," + b + ")";
+  text_message.style.color = 'rgb(' + r + ',' + g + ',' + b + ')';
 };
