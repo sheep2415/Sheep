@@ -1,13 +1,24 @@
 /* ==========================================
-   script.js (onclick 직접 호출 방식)
+   script.js (로그인 동작 검증 보완)
    ========================================== */
 
 // 1. 로그인 확인 함수 (아이디: Sheep / 비번: 24152415)
-function checkLogin() {
-    const id = document.getElementById('login-id').value.trim();
-    const pw = document.getElementById('login-pw').value.trim();
+function checkLogin(e) {
+    if (e) e.preventDefault(); // 페이지 새로고침 방지
+
+    const idInput = document.getElementById('login-id');
+    const pwInput = document.getElementById('login-pw');
     const msg = document.getElementById('login-msg');
 
+    if (!idInput || !pwInput || !msg) {
+        alert('HTML 입력창 태그를 찾을 수 없습니다.');
+        return;
+    }
+
+    const id = idInput.value.trim();
+    const pw = pwInput.value.trim();
+
+    // 입력값 검증
     if (id === 'Sheep' && pw === '24152415') {
         msg.style.color = '#16a34a'; // 성공: 초록색
         msg.innerText = '성공';
@@ -22,16 +33,21 @@ const colors = ['#dc2626', '#2563eb', '#16a34a', '#9333ea', '#ea580c', '#000000'
 let colorIdx = 0;
 function changeTextColor() {
     colorIdx = (colorIdx + 1) % colors.length;
-    document.getElementById('color-text').style.color = colors[colorIdx];
+    const colorText = document.getElementById('color-text');
+    if (colorText) {
+        colorText.style.color = colors[colorIdx];
+    }
 }
 
 // 3. 카운터 증가 함수
 let clickCount = 0;
 function increaseCounter() {
     clickCount++;
-    document.getElementById('counter-count').innerText = clickCount + '번 클릭';
+    const counterCount = document.getElementById('counter-count');
+    if (counterCount) {
+        counterCount.innerText = clickCount + '번 클릭';
+    }
 }
-
 
 /* ==========================================
    기존 공부 문제 풀이 최소 기능
@@ -82,7 +98,7 @@ function requestQuickQuiz(grade, subject) {
 
 function presentQuiz(quiz) {
     activeQuiz = quiz;
-    let opts = quiz.options.map(o => `<li><button class="option-btn" onclick="submitOptionAnswer('${o.charAt(0)}')">${o}</button></li>`).join('');
+    let opts = quiz.options.map(o => `<li><button type="button" class="option-btn" onclick="submitOptionAnswer('${o.charAt(0)}')">${o}</button></li>`).join('');
     appendMessage('ai', `<strong>🎯 맞춤 문제</strong><div class="problem-card"><div class="problem-title">${quiz.question}</div><ul class="options-list">${opts}</ul></div>`);
 }
 
