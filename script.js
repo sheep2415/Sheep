@@ -1,24 +1,20 @@
 /* ==========================================
-   script.js (로그인 동작 검증 보완)
+   script.js (로그인 검증 + 실습 3종 + 문제 풀이)
    ========================================== */
 
 // 1. 로그인 확인 함수 (아이디: Sheep / 비번: 24152415)
 function checkLogin(e) {
-    if (e) e.preventDefault(); // 페이지 새로고침 방지
+    if (e) e.preventDefault();
 
     const idInput = document.getElementById('login-id');
     const pwInput = document.getElementById('login-pw');
     const msg = document.getElementById('login-msg');
 
-    if (!idInput || !pwInput || !msg) {
-        alert('HTML 입력창 태그를 찾을 수 없습니다.');
-        return;
-    }
+    if (!idInput || !pwInput || !msg) return;
 
     const id = idInput.value.trim();
     const pw = pwInput.value.trim();
 
-    // 입력값 검증
     if (id === 'Sheep' && pw === '24152415') {
         msg.style.color = '#16a34a'; // 성공: 초록색
         msg.innerText = '성공';
@@ -50,7 +46,7 @@ function increaseCounter() {
 }
 
 /* ==========================================
-   기존 공부 문제 풀이 최소 기능
+   기존 공부 문제 풀이 핵심 기능
    ========================================== */
 const quizBank = [
     { id: 1, grade: "ele1", subject: "math", question: "[초등 1학년 수학] 5 + 3 은 얼마일까요?", options: ["1) 6", "2) 7", "3) 8", "4) 9"], answer: "3", answerText: "8", explanation: "5에 3을 더하면 8입니다." },
