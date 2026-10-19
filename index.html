@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 공부 문제 풀이 (초1~고3)</title>
+    <!-- 외부 라이브러리 없는 순수 CSS 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 1. 좌측 사이드바 -->
+    <!-- 1. 좌측 사이드바 (연파랑 영역) -->
     <div class="sidebar">
         <div class="sidebar-header">
             <h1>공부 문제 풀이</h1>
@@ -18,7 +19,7 @@
         <h3 class="section-title">학습 학년 및 과목 선택</h3>
         <div class="filter-group">
             <label for="grade-select">학년 선택</label>
-            <select id="grade-select" class="filter-select">
+            <select id="grade-select" class="filter-select" onchange="handleFilterChange()">
                 <option value="all">전체 학년</option>
                 <option value="ele1">초등학교 1학년</option>
                 <option value="ele3">초등학교 3학년</option>
@@ -32,7 +33,7 @@
 
         <div class="filter-group">
             <label for="subject-select">과목 선택</label>
-            <select id="subject-select" class="filter-select">
+            <select id="subject-select" class="filter-select" onchange="handleFilterChange()">
                 <option value="all">전체 과목</option>
                 <option value="math">수학</option>
                 <option value="korean">국어</option>
@@ -96,21 +97,21 @@
             </tr>
         </table>
 
-        <div style="margin-top: 14px;">
+        <div style="margin-top: 16px;">
             <p style="font-size: 11px; color: #64748b;">
                 * 참고 사이트: <a href="https://www.ebsi.co.kr" target="_blank" style="color: #2563eb;">EBSi 학습 포털</a>
             </p>
         </div>
     </div>
 
-    <!-- 2. 우측 메인 영역 -->
+    <!-- 2. 우측 메인 영역 (연노랑 영역) -->
     <div class="main-workspace">
         <div class="main-header">
             <h2>📖 공부 문제 풀이 메인 대화</h2>
             <p>풀고 싶은 과목이나 학년을 대화창에 입력하거나 좌측 버튼을 클릭하세요.</p>
         </div>
 
-        <!-- 자바스크립트 실습 3종 패널 -->
+        <!-- 📌 상단 실습 기능 3종 패널 -->
         <div class="practice-panel">
             <div class="practice-item">
                 <h3>1. 로그인</h3>
@@ -132,7 +133,7 @@
             </div>
         </div>
 
-        <!-- 문제 풀이 대화창 스크롤 영역 -->
+        <!-- 💬 대화 및 문제 출력 스크롤 영역 -->
         <div id="chat-container" class="chat-container">
             <div class="message ai">
                 <div class="bubble">
@@ -141,8 +142,8 @@
                     <div class="guide-box">
                         <strong>📌 이용 가이드</strong>
                         <ol>
-                            <li>원하는 학년/과목을 검색합니다.</li>
-                            <li>제시되는 문제의 정답을 입력하거나 선택합니다.</li>
+                            <li>원하는 학년/과목을 선택하거나 검색합니다.</li>
+                            <li>제시되는 보기 버튼을 클릭하거나 정답을 입력합니다.</li>
                             <li>정답 여부와 상세 해설을 바로 확인합니다.</li>
                         </ol>
                     </div>
@@ -150,7 +151,7 @@
             </div>
         </div>
 
-        <!-- 3. 화면 하단 고정 입력바 -->
+        <!-- 3. 하단 입력바 (항상 하단 고정) -->
         <div class="bottom-bar-container">
             <div id="preview-area" class="preview-area">
                 <img id="preview-img" class="preview-thumb" src="" alt="첨부 이미지 미리보기" style="display: none;">
@@ -161,14 +162,4 @@
                 <button type="button" class="icon-btn" onclick="promptLinkInput()" title="링크 첨부">🔗</button>
                 <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
                 
-                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나 정답을 작성하세요..." onkeypress="handleKeyPress(event)">
-                
-                <button type="button" class="send-btn" onclick="sendMessage()" title="전송">➤</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 스크립트 연결 -->
-    <script src="script.js"></script>
-</body>
-</html>
+                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나
