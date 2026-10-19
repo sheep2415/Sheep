@@ -334,56 +334,102 @@ body {
 .send-btn:hover {
     background-color: #1d4ed8;
 }
-/* ==========================================
-   [추가] 오른쪽 아래 고정 위젯 스타일
-   ========================================== */
-.bottom-right-container {
-    position: fixed;       /* 화면에 위치를 고정 */
-    bottom: 20px;          /* 아래에서 20px 떨어진 위치 */
-    right: 20px;           /* 오른쪽에서 20px 떨어진 위치 */
-    background-color: #ffffff;
-    border: 2px solid #2563eb;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;         /* 화면 최상단에 표시 */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 240px;
+body {
+  font-family: sans-serif;
+  color: #222222;
+  background-color: #f4f6fa;
+  margin: 0;
+  padding: 20px;
 }
 
-.bottom-right-container input {
-    width: 100%;
-    padding: 6px 8px;
-    margin-bottom: 4px;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 12px;
+#wrap {
+  width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border: 1px solid #d0d7e2;
 }
 
-.bottom-right-container button {
-    padding: 6px 12px;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
+h1 {
+  font-size: 32px;
+  color: #2457c5;
+  text-align: center;
 }
 
-.bottom-right-container button:hover {
-    background-color: #1d4ed8;
+h2 {
+  font-size: 24px;
+  color: #1b2a4a;
+  margin: 40px 0 12px;
 }
 
-#text_message {
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-    padding: 8px;
-    border: 1px dashed #cbd5e1;
-    border-radius: 4px;
-    font-size: 13px;
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.intro {
+  text-align: center;
+  color: #555555;
+}
+
+#menu {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.link {
+  display: inline-block;
+  color: #ffffff;
+  background-color: #2457c5;
+  padding: 8px 16px;
+  margin: 4px;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+}
+
+.box {
+  background-color: #eef3fc;
+  border: 1px solid #c5d2ee;
+  padding: 16px;
+}
+
+#cards {
+  display: flex;
+}
+
+.card {
+  width: 50%;
+  border: 1px solid #d0d7e2;
+  padding: 16px;
+  margin: 0 4px;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #d0d7e2;
+}
+
+th {
+  height: 40px;
+  color: #ffffff;
+  background-color: #2457c5;
+  padding: 10px;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+.point {
+  font-weight: bold;
+  color: #c0392b;
 }
