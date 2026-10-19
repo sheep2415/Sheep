@@ -46,37 +46,37 @@
         <h3 class="section-title">추천 빠른 문제 출제</h3>
         <ul class="quick-list">
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('ele1', 'math')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('ele1', 'math')">
                     <span>초1 - 덧셈과 뺄셈</span>
                     <span class="badge">기초</span>
                 </button>
             </li>
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('ele3', 'korean')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('ele3', 'korean')">
                     <span>초3 - 맞춤법 구분</span>
                     <span class="badge">기초</span>
                 </button>
             </li>
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('mid1', 'math')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('mid1', 'math')">
                     <span>중1 - 일차방정식</span>
                     <span class="badge">중급</span>
                 </button>
             </li>
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('mid3', 'science')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('mid3', 'science')">
                     <span>중3 - 원소 기호</span>
                     <span class="badge">중급</span>
                 </button>
             </li>
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('high1', 'history')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('high1', 'history')">
                     <span>고1 - 한국사 고려시대</span>
                     <span class="badge">고급</span>
                 </button>
             </li>
             <li>
-                <button class="quick-btn" onclick="requestQuickQuiz('high3', 'math')">
+                <button class="quick-btn" type="button" onclick="requestQuickQuiz('high3', 'math')">
                     <span>고3 - 미분법 기초</span>
                     <span class="badge">고급</span>
                 </button>
@@ -111,7 +111,7 @@
             <p>풀고 싶은 과목이나 학년을 대화창에 입력하거나 좌측 버튼을 클릭하세요.</p>
         </div>
 
-       <!-- 📌 자바스크립트 실습 기능 3종 패널 (새로고침 방지 type="button" 추가) -->
+        <!-- 📌 자바스크립트 실습 기능 3종 패널 -->
         <div class="practice-panel">
             <div class="practice-item">
                 <h3>1. 로그인</h3>
@@ -132,6 +132,42 @@
                 <span id="counter-count" class="count-text">0번 클릭</span>
             </div>
         </div>
+
+        <!-- 대화 영역 -->
+        <div id="chat-container" class="chat-container">
+            <div class="message ai">
+                <div class="bubble">
+                    <strong>안녕하세요! 맞춤형 공부 문제 풀이 도우미입니다. 📚</strong><br><br>
+                    채팅창에 <strong>"초1 수학 문제 내줘"</strong>, <strong>"고3 미분 문제"</strong>, <strong>"중3 과학"</strong> 등을 입력하거나 왼쪽 메뉴를 선택해 보세요!
+                    <div class="guide-box">
+                        <strong>📌 이용 가이드</strong>
+                        <ol>
+                            <li>원하는 학년/과목을 검색합니다.</li>
+                            <li>제시되는 문제의 정답을 입력하거나 선택합니다.</li>
+                            <li>정답 여부와 상세 해설을 바로 확인합니다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 절대 위치 고정 하단 입력바 -->
+        <div class="bottom-bar-container">
+            <div id="preview-area" class="preview-area">
+                <img id="preview-img" class="preview-thumb" src="" alt="첨부 이미지 미리보기" style="display: none;">
+            </div>
+
+            <div class="bottom-bar">
+                <button type="button" class="icon-btn" onclick="triggerFileUpload()" title="사진 첨부">📷</button>
+                <button type="button" class="icon-btn" onclick="promptLinkInput()" title="링크 첨부">🔗</button>
+                <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                
+                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나 정답을 작성하세요..." onkeypress="handleKeyPress(event)">
+                
+                <button type="button" class="send-btn" onclick="sendMessage()" title="전송">➤</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 자바스크립트 파일 연결 -->
     <script src="script.js"></script>
