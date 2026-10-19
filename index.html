@@ -395,6 +395,28 @@
                 document.getElementById('user-input').value += ` [참고링크: ${url}]`;
             }
         }
+        <!-- [추가] 오른쪽 아래 고정 위젯 태그 -->
+    <div class="bottom-right-container">
+        <!-- 로그인 폼 -->
+        <form id="loginForm">
+            <input type="text" id="user_Id" placeholder="아이디 (junamsu)">
+            <input type="password" id="user_Pw" placeholder="비밀번호 (helloworld)">
+            <button type="submit" style="width: 100%;">로그인</button>
+        </form>
+
+        <hr style="border: 0; border-top: 1px solid #e2e8f0;">
+
+        <!-- 카운터 -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button id="counter">카운트 증가</button>
+            <span id="count_number" style="font-size: 12px;">0번 클릭</span>
+        </div>
+
+        <!-- 색 바꾸기 -->
+        <div id="text_message">
+            클릭시 색상 변경!
+        </div>
+    </div>
     </script>
 </body>
 </html>
