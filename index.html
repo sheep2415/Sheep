@@ -111,29 +111,29 @@
             <p>풀고 싶은 과목이나 학년을 대화창에 입력하거나 좌측 버튼을 클릭하세요.</p>
         </div>
 
-        <!-- 📌 실습 기능 3종 패널 (상단 고정) -->
+        <!-- 📌 자바스크립트 실습 기능 3종 패널 (onclick 직접 연결) -->
         <div class="practice-panel">
             <div class="practice-item">
                 <h3>1. 로그인</h3>
                 <input type="text" id="login-id" class="login-input" placeholder="아이디"><br>
                 <input type="password" id="login-pw" class="login-input" placeholder="비밀번호"><br>
-                <button id="login-btn" class="action-btn">로그인</button>
+                <button class="action-btn" onclick="checkLogin()">로그인</button>
                 <p id="login-msg" class="result-msg"></p>
             </div>
 
             <div class="practice-item">
                 <h3>2. 글자 색 바꾸기</h3>
-                <p id="color-text" class="color-toggle-text">안녕하세요 만나서 반갑습니다. 클릭하시면 색이 바뀝니다.</p>
+                <p id="color-text" class="color-toggle-text" onclick="changeTextColor()">안녕하세요 만나서 반갑습니다. 클릭하시면 색이 바뀝니다.</p>
             </div>
 
             <div class="practice-item">
                 <h3>3. 카운터</h3>
-                <button id="counter-btn" class="action-btn">counter</button>
+                <button class="action-btn" onclick="increaseCounter()">counter</button>
                 <span id="counter-count" class="count-text">0번 클릭</span>
             </div>
         </div>
 
-        <!-- 메인 대화 스크롤 영역 -->
+        <!-- 대화 스크롤 영역 -->
         <div id="chat-container" class="chat-container">
             <div class="message ai">
                 <div class="bubble">
