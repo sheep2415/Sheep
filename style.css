@@ -1,9 +1,8 @@
 /* ==========================================
    AI 공부 문제 풀이 - style.css
-   외부 라이브러리 없이 순수 CSS로 작성된 스타일
+   필수 CSS 속성 7가지 (background-color, border, width, height, margin, padding, display) 명시 포함
    ========================================== */
 
-/* 기본 리셋 및 폰트 설정 */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,9 +18,9 @@ body {
     overflow: hidden;
 }
 
-/* 1. 좌측 사이드바 (연한 파란색 계열 - 와이어프레임 준수) */
+/* 1. 좌측 사이드바 (연파랑) */
 .sidebar {
-    width: 320px;
+    width: 300px;
     height: 100%;
     background-color: #e8f0fe;
     border-right: 2px solid #cbd5e1;
@@ -32,7 +31,7 @@ body {
 }
 
 .sidebar-header {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 2px solid #bcd0f7;
 }
@@ -52,10 +51,10 @@ body {
     font-size: 14px;
     color: #1e40af;
     margin-top: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
-/* 추천 문제 리스트 */
 .quick-list {
     list-style: none;
     margin-bottom: 16px;
@@ -67,7 +66,7 @@ body {
 
 .quick-btn {
     width: 100%;
-    padding: 10px 12px;
+    padding: 8px 10px;
     background-color: #ffffff;
     border: 1px solid #93c5fd;
     border-radius: 8px;
@@ -84,9 +83,8 @@ body {
     background-color: #dbeafe;
 }
 
-/* 드롭다운 셀렉트 */
 .filter-group {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .filter-group label {
@@ -99,18 +97,17 @@ body {
 
 .filter-select {
     width: 100%;
-    padding: 8px 10px;
+    padding: 6px 8px;
     border: 1px solid #cbd5e1;
     border-radius: 6px;
     background-color: #ffffff;
     font-size: 13px;
 }
 
-/* 학습 현황 표 (table, tr, th, td 포함) */
 .stats-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 8px;
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
@@ -118,7 +115,7 @@ body {
 }
 
 .stats-table th, .stats-table td {
-    padding: 8px;
+    padding: 6px;
     text-align: center;
     font-size: 12px;
     border: 1px solid #e2e8f0;
@@ -131,15 +128,15 @@ body {
 
 .badge {
     display: inline-block;
-    padding: 3px 8px;
-    border-radius: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
     font-size: 11px;
     font-weight: bold;
     background-color: #2563eb;
     color: #ffffff;
 }
 
-/* 2. 우측 메인 대화 영역 (연한 노란색 계열) */
+/* 2. 우측 메인 영역 (연노랑) */
 .main-workspace {
     flex: 1;
     height: 100%;
@@ -149,7 +146,7 @@ body {
 }
 
 .main-header {
-    padding: 16px 24px;
+    padding: 14px 20px;
     background-color: #fef08a;
     border-bottom: 2px solid #fde047;
 }
@@ -162,19 +159,90 @@ body {
 .main-header p {
     font-size: 12px;
     color: #854d0e;
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
+/* 📌 우측 영역 추가 실습 기능 3종 패널 스타일 */
+.right-practice-panel {
+    background-color: #ffffff;
+    border: 2px solid #fde047;
+    border-radius: 10px;
+    margin: 16px 20px 0 20px;
+    padding: 14px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.practice-item {
+    flex: 1;
+    background-color: #fefef2;
+    border: 1px solid #fef08a;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.practice-item h3 {
+    font-size: 14px;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 4px 6px;
+    margin-bottom: 4px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.action-btn {
+    padding: 4px 12px;
+    background-color: #ffffff;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.result-msg {
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.color-toggle-text {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.count-text {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 8px;
+    color: #334155;
+}
+
+/* 대화창 */
 .chat-container {
     flex: 1;
-    padding: 24px;
+    padding: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
-/* 대화 말풍선 */
 .message {
     display: flex;
     flex-direction: column;
@@ -190,7 +258,7 @@ body {
 }
 
 .bubble {
-    padding: 14px 18px;
+    padding: 12px 16px;
     border-radius: 12px;
     font-size: 14px;
     line-height: 1.6;
@@ -213,7 +281,7 @@ body {
     background-color: #ffffff;
     border: 2px solid #facc15;
     border-radius: 12px;
-    padding: 16px;
+    padding: 14px;
     margin-top: 8px;
 }
 
@@ -221,12 +289,12 @@ body {
     font-weight: bold;
     color: #854d0e;
     margin-bottom: 8px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .options-list {
     list-style: none;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .options-list li {
@@ -235,7 +303,7 @@ body {
 
 .option-btn {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px 10px;
     background-color: #fef9c3;
     border: 1px solid #fde047;
     border-radius: 6px;
@@ -252,32 +320,32 @@ body {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    padding: 12px;
+    padding: 10px;
     margin-top: 8px;
 }
 
 .guide-box ol {
     margin-left: 20px;
-    font-size: 13px;
+    font-size: 12px;
     color: #475569;
 }
 
-/* 3. 하단 입력바 (회색 라운드 바 영역) */
+/* 3. 하단 입력바 (회색 라운드) */
 .bottom-bar-container {
-    padding: 16px 24px;
+    padding: 12px 20px;
     background-color: #fefce8;
 }
 
 .preview-area {
     display: flex;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .preview-thumb {
     display: inline-block;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 6px;
     border: 1px solid #cbd5e1;
     object-fit: cover;
@@ -287,16 +355,16 @@ body {
     background-color: #e2e8f0;
     border: 1px solid #cbd5e1;
     border-radius: 28px;
-    padding: 6px 12px;
+    padding: 4px 10px;
     display: flex;
     align-items: center;
-    height: 52px;
+    height: 48px;
 }
 
 .icon-btn {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     padding: 6px;
     margin-right: 4px;
@@ -311,24 +379,24 @@ body {
     flex: 1;
     border: none;
     background: transparent;
-    padding: 8px 12px;
+    padding: 6px 10px;
     font-size: 14px;
     outline: none;
 }
 
 .send-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: #2563eb;
     color: #ffffff;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 8px;
+    margin-left: 6px;
 }
 
 .send-btn:hover {
