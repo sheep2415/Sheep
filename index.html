@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 공부 문제 풀이 (초1~고3)</title>
-    <!-- 외부 라이브러리 없이 분리된 CSS 연결 -->
+    <!-- 분리된 CSS 스타일시트 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 1. 좌측 사이드바 (연파랑 영역 - 과목/학년 및 학습현황) -->
+    <!-- 1. 좌측 사이드바 (연파랑 영역) -->
     <div class="sidebar">
         <div class="sidebar-header">
             <h1>공부 문제 풀이</h1>
@@ -97,21 +97,21 @@
             </tr>
         </table>
 
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 16px;">
             <p style="font-size: 11px; color: #64748b;">
                 * 참고 사이트: <a href="https://www.ebsi.co.kr" target="_blank" style="color: #2563eb;">EBSi 학습 포털</a>
             </p>
         </div>
     </div>
 
-    <!-- 2. 우측 메인 영역 (연노랑 영역 - 자바스크립트 실습 3종 + 대화창) -->
+    <!-- 2. 우측 메인 학습 영역 (연노랑 영역) -->
     <div class="main-workspace">
         <div class="main-header">
             <h2>📖 공부 문제 풀이 메인 대화</h2>
             <p>풀고 싶은 과목이나 학년을 대화창에 입력하거나 좌측 버튼을 클릭하세요.</p>
         </div>
 
-        <!-- 📌 [우측 상단] 자바스크립트 실습 기능 3종 (요청하신 기능 추가) -->
+        <!-- 📌 우측 상단 실습 기능 3종 패널 (컴팩트 배치) -->
         <div class="right-practice-panel">
             <div class="practice-item">
                 <h3>1. 로그인</h3>
@@ -133,9 +133,43 @@
             </div>
         </div>
 
-        <!-- 문제 풀이 대화창 영역 -->
+        <!-- 대화 영역 (내부 스크롤) -->
         <div id="chat-container" class="chat-container">
             <div class="message ai">
                 <div class="bubble">
                     <strong>안녕하세요! 맞춤형 공부 문제 풀이 도우미입니다. 📚</strong><br><br>
                     채팅창에 <strong>"초1 수학 문제 내줘"</strong>, <strong>"고3 미분 문제"</strong>, <strong>"중3 과학"</strong> 등을 입력하거나 왼쪽의 메뉴를 선택해 보세요!
+                    <div class="guide-box">
+                        <strong>📌 이용 가이드</strong>
+                        <ol>
+                            <li>원하는 학년/과목을 검색합니다.</li>
+                            <li>제시되는 문제의 정답을 입력하거나 선택합니다.</li>
+                            <li>정답 여부와 상세 해설을 바로 확인합니다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 하단 입력바 (고정 고정 영역) -->
+        <div class="bottom-bar-container">
+            <div id="preview-area" class="preview-area">
+                <img id="preview-img" class="preview-thumb" src="" alt="첨부 이미지 미리보기" style="display: none;">
+            </div>
+
+            <div class="bottom-bar">
+                <button class="icon-btn" onclick="triggerFileUpload()" title="사진 첨부">📷</button>
+                <button class="icon-btn" onclick="promptLinkInput()" title="링크 첨부">🔗</button>
+                <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                
+                <input type="text" id="user-input" class="chat-input" placeholder="학습하고 싶은 과목/학년을 입력하거나 정답을 작성하세요..." onkeypress="handleKeyPress(event)">
+                
+                <button class="send-btn" onclick="sendMessage()" title="전송">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 분리된 자바스크립트 연결 -->
+    <script src="script.js"></script>
+</body>
+</html>
