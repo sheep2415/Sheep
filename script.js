@@ -1,8 +1,8 @@
 /* ==========================================
-   script.js (실습 3종 + 풀이 인터랙션 전면 복원)
+   script.js
    ========================================== */
 
-// 📌 1. 실습 기능 3종 구현
+// 📌 1. 실습 기능 3종
 function checkLogin(e) {
     if (e) e.preventDefault();
 
@@ -43,8 +43,7 @@ function increaseCounter() {
     }
 }
 
-
-// 📌 2. 대화형 맞춤 문제 데이터베이스
+// 📌 2. 대화형 문제 풀이 데이터베이스
 const quizBank = [
     {
         id: 1, grade: "ele1", subject: "math",
@@ -107,7 +106,7 @@ const quizBank = [
 let stats = { total: 0, correct: 0 };
 let activeQuiz = null;
 
-// 📌 3. 대화 및 문제 출제 로직
+// 📌 3. 문제 출제 및 대화 로직
 function handleKeyPress(e) {
     if (e.key === 'Enter') {
         sendMessage();
